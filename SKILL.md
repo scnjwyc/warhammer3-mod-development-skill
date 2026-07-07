@@ -1,6 +1,6 @@
 ---
 name: warhammer-mod-development
-description: "提供全面战争：战锤3 MOD开发指导，包括TSV表格格式、Lua脚本模式、本地化约定和项目结构。触发词：战锤、MOD、WH3、Lua脚本、数据库表、本地化、翻译、MOD开发、日志、log、有问题、问题依然存在"
+description: "提供全面战争：战锤3 MOD开发指导，包括TSV表格格式、Lua脚本模式、本地化约定、项目结构、技能图标。触发词：战锤、MOD、WH3、Lua脚本、数据库表、本地化、翻译、MOD开发、技能图标、主动技能图标、ability_icons、日志、log、有问题、问题依然存在"
 ---
 
 # 战锤3 MOD 开发指南
@@ -239,6 +239,17 @@ end)
 | 首次tick回调 | `cm:add_first_tick_callback(function(context) end)` |
 | 注册监听器 | `core:add_listener(name, event, condition_fn, callback_fn, persistent)` |
 
+### 3.1 五行罗盘冷却注意事项
+
+- `wh3_main_effect_campaign_compass_coodown_mod` 只影响罗盘选择冷却修正值，不能用来立即清除当前 `WOM_COMPASS_SCRIPT_INTERFACE:get_compass_cooldown()` 或 UI `CompassCooldown`。
+- 不要把这个 effect 或临时自定义 effect bundle 当作“立即重置五行罗盘冷却”的修复方案。
+- `cm:set_next_winds_of_magic_compass_selection_cooldown(faction, 0)` 可以设置派系下一次罗盘选择冷却，但未证明能清掉当前 `CompassCooldown`；必须用 `cm:model():world():winds_of_magic_compass():get_faction_cooldown(faction_key)`、`get_compass_cooldown()` 和最新 `script_log_*.txt` 验证。
+- 如果需求是立即切换罗盘方向，应优先检查 UI/CCO 流程，例如 `CanChangeDirection`、`ChooseCompassDirection`、`skip_cooldown_confirmation_holder`，不要先猜 DB/effect workaround。
+- 截至本地源码验证，没有 Lua setter 能直接把当前全局 `CompassCooldown` 写成 0；可实现的是走原版“跳过当前冷却”机制。
+- 原版 `skip_cooldown_confirmation_holder` 的 `button_tick` 只播放动画/关闭确认框，不会执行 `ChooseCompassDirection`；实测只在 `button_tick` 中调用 `ChooseCompassDirection(StoredContext("CcoCampaignWomCompassDirection"))` 仍可能无效，因为弹窗确认时存储的方向上下文不可靠。
+- 若要验证 UI 绕过路径，优先改方向按钮自身的 `ContextCommandLeftClick`。该回调已有 `CcoCampaignFactionWomCompass fac, CcoCampaignWomCompassDirection dir`，可直接测试 `fac.ChooseCompassDirection(dir)`，并用 `WoMCompassUserDirectionSelectedEvent` 日志确认是否进入模型层。
+- 如果希望跳过当前冷却不消耗方向能量，将 `campaign_variables_tables` 的 `winds_of_magic_compass_selection_cost_per_turn_on_cd` 覆盖为 `0.0000`；再配合 `cm:set_next_winds_of_magic_compass_selection_cooldown(faction, 0)` 清掉派系层 `FactionCooldown`。
+
 ### 4. 常见错误
 
 ```lua
@@ -328,14 +339,16 @@ end
 
 ## 数据库表类型参考
 
-| 表名 | 用途 |
-|------|------|
-| effects_tables | 定义效果类型 |
-| effect_bundles_tables | 定义效果捆绑 |
-| effect_bundles_to_effects_junctions_tables | 将效果捆绑绑定到效果 |
-| effect_bonus_value_faction_junctions_tables | 将效果绑定到派系 |
-| diplomatic_relationship_effects_tables | 外交关系效果 |
-| incidents_tables | 事件配置 |
+> **完整 DB 文档**：本表仅列最常用的几张。全部 MOD 相关表（约 190 张）的用途、主键、关联关系详见 [references/db_index.md](references/db_index.md) 总索引及各域详情文档（见文末「附加资源」）。
+
+| 表名 | 用途 | 详情文档 |
+|------|------|---------|
+| effects_tables | 定义效果类型 | [effects_and_bundles.md](references/effects_and_bundles.md) |
+| effect_bundles_tables | 定义效果捆绑 | [effects_and_bundles.md](references/effects_and_bundles.md) |
+| effect_bundles_to_effects_junctions_tables | 将效果捆绑绑定到效果 | [effects_and_bundles.md](references/effects_and_bundles.md) |
+| effect_bonus_value_faction_junctions_tables | 将效果绑定到派系 | [effects_and_bundles.md](references/effects_and_bundles.md) |
+| diplomatic_relationship_effects_tables | 外交关系效果 | （见 db_index 查询） |
+| incidents_tables | 事件配置 | [missions_incidents_dilemmas.md](references/missions_incidents_dilemmas.md) |
 
 ## Campaign Group Member 一对一约束
 
@@ -576,7 +589,71 @@ Grep pattern: "Iron Dragon|Jade Dragon|Heavenly Bow|Tiger Court|..."
 5. 存在 → 候选通过（但仍需人工抽检，防止同词异译恰好撞上）
 
 
+## 被动技能图标绘制规则
+
+适用范围：`mod/[MOD名]/ui/battle ui/ability_icons/*.png` 中需要改成被动/常驻技能视觉风格的小图标。
+
+### 目标风格
+
+- 参考图优先使用：`源码/ui/battle ui/ability_icons/ballistic_plating.png`。
+- 成品尺寸必须为 **38×38 PNG**，保留 alpha 透明通道，推荐保存为 `Format32bppArgb`、约 96 DPI。
+- 图标角落必须透明；外侧阴影应使用参考图那种 **逐渐淡化的 alpha 边缘**，不要做成实心方底。
+- 黑边只能是 **窄、柔和、渐隐** 的暗边；禁止做成明显粗黑环、硬切圆框、过宽黑框。
+- 主体图案大小要接近参考图占位。旧 59×59 技能图标通常先把主体缩到约 **0.86** 的占位，再压制到 38×38；如果视觉上过小或过大，可微调，但必须先看放大预览。
+- 保留原图的核心图案、方向、颜色身份和可识别特征；除非用户明确要求重绘，不要让 AI 生成替换掉原图案。
+
+### 推荐制作流程
+
+1. 修改前先读取目标 PNG 和参考 PNG，并检查目标文件当前状态；不要基于记忆编辑。
+2. 可以用 `imagegen` 做风格参考或预览，但最终写回时优先以原始 PNG 为源做确定性像素处理，避免图案被 AI 改形。
+3. 将源图居中缩放到目标占位，再缩到 38×38。
+4. 最终 alpha 建议复用参考图 `ballistic_plating.png` 的透明度梯度，以获得相同的透明角、柔边和阴影过渡。
+5. 外圈处理原则：
+   - 源图透明或接近透明的边缘区域，输出为中性黑色并使用参考 alpha，形成柔和阴影；
+   - 仅在最外侧 1–2 像素做轻微变暗；
+   - 不要覆盖主体区域，不要生成宽黑框。
+6. 临时预览可放在 `tmp/` 下，写回源文件后应清理临时目录。
+7. 只改工作区源 PNG；不要打包 `.pack`，不要检查或质疑用户的 pack 覆盖流程。
+
+### 验证清单
+
+- [ ] 最终 PNG 为 38×38。
+- [ ] PNG 带 alpha，角落透明，边缘有渐隐阴影。
+- [ ] 黑边不粗、不硬、不显眼。
+- [ ] 主体图案大小与参考图接近，未贴边挤满。
+- [ ] 原图案可识别性保留，没有被 AI 重绘成别的图案。
+- [ ] 用原始大小和 8 倍黑底预览各看一次。
+- [ ] 报告所有写回的源文件路径；不执行 pack 打包。
+
+
+## 战斗主动技能图标绘制规则
+
+当用户要求重绘、优化或统一战斗技能图标，尤其是主动技能图标时，按以下规则执行：
+
+1. 始终先确认源文件。用本地化文本或技能 key 在 `mod/<MOD名>/text/db/` 与 `mod/<MOD名>/db/unit_abilities_tables/` 中定位技能，再确认 `icon_name` 对应的 PNG 路径，不要仅凭图案猜文件名。
+2. 修改前先读取当前 PNG 的尺寸、像素格式、哈希，并目视查看当前图标。若用户给了参考图，也先读取参考图。
+3. 图标统一输出为 `59x59` PNG，优先转为 `Format24bppRgb`，保存到 `ui/battle ui/ability_icons/<icon_name>.png`。
+4. 主动技能图标应保持 Total War 技能图标风格：内部为圆形构图，外缘有暗角或金属/魔法边框，表面带轻微玻璃高光；主体图案要居中、简洁、高对比，在 `59x59` 缩略图下仍可辨认。
+5. 主体内容按用户指定主题或参考图绘制。保留参考图的核心轮廓、颜色关系和识别点，但要重绘为本 MOD 已采用的圆形玻璃化画风；不要照搬矩形卡片、透明背景或不一致的外框。
+6. 主动技能可比被动/特质图标更有“施放感”：允许加入旋涡、光环、护盾、火焰、风流、符文光、粒子和方向性动势，但不要让特效遮住主题主体。
+7. 禁止在图标中加入文字、字母、水印、人物大脸、UI 说明文字或过多小物件。若主题是物品，应让物品轮廓占据中心；若主题是光环/庇佑，应让核心符号与环形保护感清楚。
+8. 使用 `imagegen` skill 的内置 `image_gen` 流程。生成的资产先存到工具的生成目录，再复制/缩放进工作区最终路径；不要把项目引用资产只留在生成目录。
+9. 覆盖源 PNG 后，必须验证：尺寸为 `59x59`、PNG 存在、`unit_abilities_tables` 的 `icon_name` 与文件名一致，并目视检查最终缩略图。
+10. 只改源文件，不执行 pack 打包、导入或覆盖 pack。最终回复中说明保存路径、是否修改 DB、是否未打包，以及使用的图像生成方式和提示词概要。
+
+
 ## 开发工作流
+
+### 硬性边界：不修改第三方 MOD 源码
+
+排查任何问题时，第三方 MOD 源码只能读取、搜索、对照和引用，**不得编辑**。
+
+- `mod/第三方MOD/` 下的文件默认全部视为只读。
+- 用户明确称为第三方、参考、原始、对照或外部来源的 MOD 文件默认只读，即使不在 `mod/第三方MOD/` 下。
+- 即使日志显示第三方脚本或 DB 报错，也不要直接修第三方 MOD；应在用户维护的目标 MOD、兼容补丁、DB 覆盖或自身脚本防护中解决。
+- 若需要验证第三方行为，可以读取日志、源码和 DB 链路，但不能写回第三方文件，不能用格式化工具或批量命令改动第三方目录。
+- 只有用户明确要求“修改这个第三方 MOD 源码”时，才允许编辑该第三方 MOD。
+- 如果误改了第三方 MOD，必须立即只回滚自己造成的第三方文件改动，并向用户说明。
 
 ### 重要：查看游戏日志
 
@@ -644,8 +721,25 @@ root > units_panel > main_units_panel > recruitment_docker > recruitment_options
 
 ## 附加资源
 
+### 基础参考
 - TSV格式详情，参见 [references/tsv_format.md](references/tsv_format.md)
 - Lua API参考，参见 [references/lua_api.md](references/lua_api.md)
 - 命名规范，参见 [references/naming_conventions.md](references/naming_conventions.md)
 - 常用效果键，参见 [references/common_effect_keys.md](references/common_effect_keys.md)
 - 项目结构，参见 [references/project_structure.md](references/project_structure.md)
+
+### DB 表用途与关联关系（按业务域分文档）
+
+**先看总索引**：[references/db_index.md](references/db_index.md) — 全部 MOD 相关表（约 190 张）的字母速查 + 域导航。知道表名查用途、知道想做某功能查该用哪些表，都从这里入口。
+
+按域深入（每份文档含该域所有表的用途、主键列、被谁引用的关联关系、常见工作流）：
+
+- 效果与效果捆绑：[references/effects_and_bundles.md](references/effects_and_bundles.md) — `effects_tables`、`effect_bundles_tables`、各种 bonus_value junction
+- 装备与特性：[references/ancillaries_and_traits.md](references/ancillaries_and_traits.md) — `ancillaries_tables`、`character_traits_tables`
+- 单位与战斗：[references/units_and_combat.md](references/units_and_combat.md) — `main_units_tables`、`land_units_tables`、武器/投射物/技能
+- 建筑：[references/buildings.md](references/buildings.md) — `building_levels_tables`、`building_effects_junction_tables`
+- 任务/事件/两难：[references/missions_incidents_dilemmas.md](references/missions_incidents_dilemmas.md) — `incidents_tables`、`missions_tables`、`cdir_events_*_payloads_tables`
+- 仪式：[references/rituals.md](references/rituals.md) — `rituals_tables`、`ritual_payloads_tables`
+- 池资源：[references/pooled_resources.md](references/pooled_resources.md) — `pooled_resources_tables`、因子系统
+- 战役组/载荷/佣兵：[references/campaigns_payloads_mercenaries.md](references/campaigns_payloads_mercenaries.md) — `campaign_groups_tables`、`campaign_payload_ui_details_tables`、佣兵池
+- 角色/技能/事务官：[references/characters_skills_agents.md](references/characters_skills_agents.md) — `character_skills_tables`、`agent_subtypes_tables`
