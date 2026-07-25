@@ -1,6 +1,6 @@
 ---
 name: warhammer-mod-development
-description: "提供全面战争：战锤3 MOD开发指导，包括TSV表格格式、Lua脚本模式、本地化约定、项目结构、技能图标。触发词：战锤、MOD、WH3、Lua脚本、数据库表、本地化、翻译、MOD开发、技能图标、主动技能图标、ability_icons、日志、log、有问题、问题依然存在"
+description: "提供全面战争：战锤3 MOD开发指导，包括TSV表格格式、Lua脚本模式、项目结构、法术DB、角色技能树与领主/英雄动作、美术资源(见 warhammer-mod-art)。触发词：战锤、MOD、WH3、Lua脚本、数据库表、MOD开发、法术、spell、vortex、projectile、动作、动画、日志、log、有问题、问题依然存在。涉及法术/技能树/动作时须查阅仓库根目录三份专题文档（见附加资源）。注意：翻译、本地化、译名、术语、汉化相关任务请使用 warhammer-mod-translation 技能；技能图标、角色兵牌、立绘、porthole 等美术资源绘制请使用 warhammer-mod-art 技能；新建传奇领主/英雄角色的完整流程请使用 warhammer-mod-character-creation 技能。"
 ---
 
 # 战锤3 MOD 开发指南
@@ -79,10 +79,87 @@ id	incident_key	payload_key	value	target_key
 - [ ] 无多余空行或空列
 - [ ] 路径前缀与文件名前缀匹配
 - [ ] 版本号与原版表匹配
+- [ ] **数值型主键在 schema 字段类型范围内**（见下方"数值主键范围校验"章节，特别是 `I32` 字段）
 - [ ] 脚本函数存在于原版文档且参数正确
 - [ ] 生成的中/英文本地化文件使用原版条目
 - [ ] 新效果作用域配置正确
-- [ ] 本地化键名遵循命名规范（参见"本地化文本约定"章节）
+- [ ] 本地化键名遵循命名规范（参见"本地化文本约定"章节)
+- [ ] 新人物技能、战斗 ability 与装备的描述字段仅写背景文本，不含任何机械效果摘要
+
+### 数值主键范围校验（必读）
+
+**RPFM 的 TSV 导入对每张表的字段类型严格校验。数值型主键（或数值列）若超出 schema 定义的范围，会导致整行被判定无效——RPFM 不一定报错，而是表现为"该行数据未生效/表内容为空/格式显示异常"。这是比字节格式更深一层的错误。**
+
+#### 字段类型与范围
+
+RPFM schema（`schema_wh3.ron`）中数值字段类型：
+
+| 类型 | 范围 | 说明 |
+|------|------|------|
+| `I32` | -2,147,483,648 ~ 2,147,483,647（约 ±21.4 亿） | **最常见的整数主键类型，最易溢出** |
+| `I64` | ±9.2 × 10¹⁸ | 大整数，几乎不会溢出 |
+| `F32` | ±3.4 × 10³⁸（7 位有效数字） | 单精度浮点 |
+| `StringU8` / `OptionalStringU8` | 任意字符串 | 字符串主键，无范围限制 |
+
+#### 必查：所有 I32 类型主键不能超过 2,147,483,647
+
+**绝对禁止使用 `9900000001`、`9999990001` 这类 90 亿+ 的数值作为主键**——它超过 `I32` 上限（21.4 亿）4 倍以上，RPFM 解析时整行作废，但 TSV 字节格式看起来完全正常，极具迷惑性。
+
+**安全做法：**
+- 新建数值主键前，**先查 schema 确认字段类型**（方法见下）
+- 若是 `I32`，key 取值建议在 **2,000,000,000 ~ 2,100,000,000** 区间（源表数据多在 20 亿内，此区间既不与源表冲突又留足余量）
+- 若是 `I64`，可放心使用大数值
+
+#### 查询 schema 字段类型的方法
+
+RPFM schema 路径（Windows）：
+```
+%APPDATA%\FrodoWazEre\rpfm\config\schemas\schema_wh3.ron
+```
+即 `C:\Users\Administrator\AppData\Roaming\FrodoWazEre\rpfm\config\schemas\schema_wh3.ron`
+
+**一键查询某张表所有字段的类型与是否主键**（Python 脚本，替换 `TABLE_NAME`）：
+
+```python
+import re
+p = r'C:\Users\Administrator\AppData\Roaming\FrodoWazEre\rpfm\config\schemas\schema_wh3.ron'
+with open(p, 'r', encoding='utf-8') as f:
+    txt = f.read()
+TABLE_NAME = 'building_units_allowed_tables'  # ← 改成目标表名
+idx = txt.find(f'"{TABLE_NAME}": [')
+end = txt.find('",\n        "', idx + 50)
+chunk = txt[idx:end]
+fields = re.findall(r'name:\s*"([^"]+)"[^}]*?field_type:\s*([A-Za-z0-9_]+)[^}]*?is_key:\s*(true|false)', chunk[:3000])
+for name, ftype, iskey in fields:
+    if iskey == 'true':
+        print(f'  {name!r:30} type={ftype:20} is_key=KEY  <<<<')
+    else:
+        print(f'  {name!r:30} type={ftype}')
+```
+
+#### 已知使用 I32 数值主键的常见表（非全量，务必逐表查 schema）
+
+| 表名 | I32 主键字段 |
+|------|-------------|
+| `building_units_allowed_tables` | `key` |
+| `building_effects_junction_tables` | （主键为字符串 `building`+`effect`，非 I32） |
+| `cdir_events_incident_payloads_tables` | `id`（`I32`） |
+
+> 上述清单不完整。**每次给一张新表写数值主键前，都先用上面的脚本查一次 schema**，不要凭记忆。
+
+#### 诊断特征（遇到这些现象先怀疑主键溢出）
+
+- TSV 字节格式完全正确（无 BOM、列数对、tab 正确、引用 key 都存在）
+- RPFM 导入"看起来没报错"或"格式显示异常"
+- 导入后表内容为空、整行消失、或对应行未在游戏内生效
+- 主键数值 ≥ 2,147,483,648
+
+满足以上全部 → 几乎可以确定是 I32 溢出，立即查 schema 并改用 ≤ 2,147,483,647 的 key。
+
+### `unit_attributes_tables` 仅允许使用原版属性
+
+- 禁止新增、覆盖或自定义 `db/unit_attributes_tables` 记录；该表的属性键属于游戏引擎固定枚举，加入自定义属性可能在数据库/Pack 加载阶段导致游戏无法启动。
+- 所有技能、效果和 Lua 脚本只能引用原版 `unit_attributes_tables/data__.tsv` 已存在的属性键；需要脚本标记时，组合两个或多个原版合法属性并在脚本中同时验证，不得创建 `!wyccc_*.tsv` 属性表。
 
 ### 表版本参考
 
@@ -108,8 +185,10 @@ wyccc_cathay_diplomatic_relations_rebel_lords_of_nan_yang	diplomacy.png	100	dipl
 ```tsv
 id	incident_key	payload_key	value	target_key
 #cdir_events_incident_payloads_tables;2;db/cdir_events_incident_payloads_tables/!!wyccc_difficulty_ogre_unification
-9999990001	wh3_dlc26_wyccc_incident_ogre_unification	TEXT_DISPLAY	LOOKUP[dummy_wyccc_ogre_unification]	default
+2100000001	wh3_dlc26_wyccc_incident_ogre_unification	TEXT_DISPLAY	LOOKUP[dummy_wyccc_ogre_unification]	default
 ```
+
+> ⚠️ 注意 `id` 字段：`cdir_events_incident_payloads_tables` 的主键 `id` 在 schema 中是 **`I32`**，上限 `2,147,483,647`。**不要用 `9999990001` 这类 90 亿+ 数值**——会溢出导致整行无效。详见上方"数值主键范围校验"章节。
 
 ### 示例：effect_bundles_tables
 
@@ -379,281 +458,42 @@ my_member	ACTOR	wh3_main_cth_the_northern_provinces   -- 被忽略！
 my_member	ACTOR	wh3_main_cth_the_western_provinces    -- 被忽略！
 ```
 
-## 本地化文本约定
+## 新建人物技能、战斗能力与装备描述规则
 
-### 核心原则：本地化键名命名规范
+实现或修改人物专属内容时，下列“描述字段”必须只写角色背景、经历、性格、传说、招式意象、装备来历或世界观叙事：
 
-游戏从本地化文件加载文本时，键名必须遵循固定命名规范，由**表前缀** + **完整键名**组成。
+- 人物技能：`character_skills_localised_description_*`
+- 战斗 ability：`unit_abilities_tooltip_text_*`
+- 装备：`ancillaries_colour_text_*`、`ancillaries_explanation_text_*`
 
-**格式**：`{表前缀}_{完整键名}`
+这些字段禁止罗列或概括机械效果，包括数值、属性增减、解锁内容、技能类型、使用次数、持续时间、冷却时间、作用范围、目标、等级成长、作用域、获取方式和角色限制。
 
-一个键通常对应两个本地化键：标题和描述。查询原版本地化文件获取用法示例。
-例如，effects_tables 的键使用前缀 `effects_description_`。
+- 机械信息由 DB 效果链、`effects_description_*`、附加效果行及游戏自动生成的效果面板承载；不得为了“说明清楚”再复制进上述描述字段。
+- `effects_description_*` 属于机械效果显示行，不属于背景描述字段；例如装备解锁节点可以用它显示“获得专属装备”，同时节点自身的 `character_skills_localised_description_*` 仍只写装备传说。
+- 装备描述不写“解锁并获得”“仅限某角色装备”“达到某级”等获取机制。
+- 完成新增人物技能、ability 或装备后，必须逐条审查上述对应字段，确认移除所有数值和机制信息后仍是完整、自然的背景文本。
 
-### 常见错误
+## 本地化文本约定（翻译相关）
 
-**错误**：直接将完整键名用作本地化键。
+本地化文本的翻译写入、术语查证、校对等完整规范已拆分到独立技能 **`warhammer-mod-translation`** 中。
 
-```tsv
--- 错误！游戏查找的键不是这个
-wyccc_ogre_feast_warning_debuff	饕餮预警	debuff.png
-```
+涉及以下任务时，应加载该技能（触发词：翻译、本地化、译名、术语、汉化、loc、校对译文）：
+- 编写或修改本地化文本（`.tsv`/`.loc`）
+- 查证专有名词的标准中文译名
+- 校对已有译文的术语准确性
 
-**正确**：使用表前缀 + `_localised_title_` / `_localised_description_` 前缀。
+**本地化键名命名规范要点**（开发时常需对照）：键名由「表前缀 + 完整键名」组成，例如 effect_bundles 的键为 `effect_bundles_localised_title_{key}` / `effect_bundles_localised_description_{key}`。详见 `warhammer-mod-translation` 技能。
 
-```tsv
--- 正确！游戏查找这两个键
-effect_bundles_localised_title_wyccc_ogre_feast_warning_debuff	饕餮预警
-effect_bundles_localised_description_wyccc_ogre_feast_warning_debuff	食人魔大军逼近，城镇秩序下降，防御力量被削弱。
-```
+## 美术资源绘制
 
-### 翻译规则（写入本地化文本时必须遵守）
+技能图标、角色兵牌、立绘、porthole 等美术资源的绘制规范（含 38×38 被动图标、59×59 主动图标、60×130 兵牌、300×164 porthole 的构图、抠图、裁切验收），见 `warhammer-mod-art` 技能。
 
-#### 1. 换行符严格使用 `\n`
+## 新建角色
 
-**换行符必须严格使用字面的 `\n`（反斜杠 + n 两个字符），而不是真正的换行控制字符。**
-
-- 本地化 `.tsv`/`.loc` 文件中，多行文本的换行用字面字符串 `\n` 表示，不要让文本在文件里实际断行。
-- ❌ 错误：把文本写成物理换行（文件里真的换了一行）
-- ✅ 正确：文本写成一整行，内部用 `\n` 这两个字符表示换行
-
-例如描述中需要分段时：
-
-```tsv
--- ✅ 正确：用字面 \n
-effect_bundles_localised_description_xxx	第一段内容。\n第二段内容。\n第三段内容。
-
--- ❌ 错误：物理换行
-effect_bundles_localised_description_xxx	第一段内容。
-第二段内容。
-```
-
-#### 2. 术语必须查原版翻译库，禁止机翻
-
-**所有人名、地名、物品、单位名称、法术等专有术语，均需查询原版翻译库获取标准译名，不得机翻。** 宁可不翻译（保留原文），也不要机翻。
-
-##### 步骤 0：先查术语库（必须，最优先）
-
-路径：`C:\Users\Administrator\Desktop\战锤MOD相关\多语言\术语库.md`
-
-**翻译前必须先用 Grep / Read 在术语库中搜索每一个待译术语。** 术语库收录了此前翻译中**已按原版库验证过**的标准译名，命中则直接复用，禁止自行另译。
-
-- 术语库的目的：避免重复查证、避免同一术语在不同条目中译名漂移。
-- **查到新术语后必须回填术语库**：每按下方「查询流程」从原版库确证一个术语库尚未收录的新术语，**立即追加到术语库对应分类下**（英文 / 中文 / 出处 key 三列）。术语库需随翻译工作持续增长，这是翻译流程的强制环节，不是可选项。
-- 术语库中已有的译名不得擅自替换为"更顺口"的写法；若发现译名与原版本地化库不一致，以原版本地化库为准并修正术语库。
-
-##### 查询流程（术语库未收录时）
-
-**步骤 1：用英文名词在英文库搜索**
-
-路径：`C:\Users\Administrator\Desktop\战锤MOD相关\多语言\EN`
-
-- 用 Grep 在 `EN` 目录下搜索该术语的英文原文（如 `Grimgor`、`Celestial Dragon Guard`、`Comet of Casandora`）。
-- 搜索结果大概率命中一整段英文文本（词条是完整的句子或段落），而不是孤立的单词。
-- 从这段英文文本中确认该术语确实存在，并定位其所在的行/条目。
-- **每个术语独立搜索，不要把多个术语拼在一个正则里批量搜**——批量搜会漏命中，且无法对应到具体 key（详见下方反面案例）。
-
-**步骤 2：用 key 去中文库查翻译**
-
-路径：`C:\Users\Administrator\Desktop\战锤MOD相关\多语言\localisation__.loc_CN.tsv`
-
-- 英文库每条记录都有一个 `key`（通常是第一列），用这个 `key` 在中文库中查找对应行。
-- 从中文翻译文本中提取该术语在官方中文版里的标准译名（如 `Grimgor` → `格里姆格`）。
-- 该译名即为写入本地化文件时应使用的标准译名。
-
-##### 流程示意
-
-```
-英文术语 "Celestial Dragon Guard"
-    │
-    ▼ 步骤 0：先查 多语言/术语库.md
-    ├─ 命中？→ 直接复用术语库译名（结束）
-    └─ 未命中？↓
-    │
-    ▼ 步骤 1：Grep 搜索 多语言/EN（单独搜，不要批量）
-命中 key = "wh3_main_unit_description_cth_celestial_dragon_guard"
-对应的英文段落："...The Celestial Dragon Guard are..."
-    │
-    ▼ 步骤 2：用该 key 查 多语言/localisation__.loc_CN.tsv
-命中中文段落："...龙卫军是..."
-    │
-    ▼ 提取译名
-标准译名 = "龙卫军"
-    │
-    ▼ 步骤 3（强制）：把 {英文, 中文, 出处 key} 回填进 多语言/术语库.md
-```
-
-##### 备选：联网查询
-
-**如果原版翻译库中查不到该术语**（例如是新加入的内容、或是非官方术语），再联网查询标准译名：
-- 优先查战锤官方维基、战锤中文社区等权威来源
-- 仍查不到时，**保留英文原文，不要机翻**——宁可整段留英文，也不要给出低质量机翻
-
-##### 禁止事项
-
-- ❌ 直接用翻译工具（机翻）翻译专有名词
-- ❌ 想当然地自行音译或意译术语
-- ❌ 混用不同译名（同一术语在不同条目中译法不一致）
-- ❌ 翻译前不查术语库就直接动手
-- ❌ 查证了新术语却不回填术语库（让下一次翻译重复踩坑）
-- ❌ 把多个术语拼在一个正则里批量搜（会漏命中且丢失 key 对应关系）
-- ❌ 译文中夹带未经查证的英文单词（如把 `gibbering`、`razor`、`hamstring`、`crews`、`celest` 这类普通英文词原样留在中文译文里）
-
-##### 反面案例（真实踩坑记录，务必引以为戒）
-
-以下是一次 legend lore 汉化中真实犯下的错误，已被用户指出并修正。每条都对应上方某条禁止事项，**不要再犯同样的错**。
-
-**案例 1：批量正则搜索导致漏查术语**
-
-把多个术语拼在同一个 Grep 正则里搜：
-```
-Grep pattern: "Iron Dragon|Jade Dragon|Heavenly Bow|Tiger Court|..."
-```
-结果只命中了一两个（如 `Heaven's Gate`），就草草判定"已查证"。
-- **实际后果**：`Iron Dragon`、`Dawi-Zharr`、`Tiger Court`、`House of Secrets` 等关键术语全部漏查。
-- **正确做法**：每个术语单独搜索，逐个走完"EN 库搜英文 → 取 key → 中文库查译名"的完整流程。
-
-**案例 2：跳过"步骤 2"凭印象改译**
-
-`Iron Dragon` 在 Grep 结果中没有直接命中带上下文的段落，于是**跳过了"用 key 查中文库"这一步**，凭印象译成"铸铁龙"。
-- **实际后果**：原版标准译名是**镔龙**（出处 `ancillaries_colour_text_wh3_cp1_anc_weapon_blades_of_shang_yang`："这套华丽的拳刃乃是奉镔龙本人之命…"）。"铸铁龙"是完全错误的译名。
-- **正确做法**：EN 库搜到 `Iron Dragon` 后，取该条 key，到 `localisation__.loc_CN.tsv` 查同 key，从中文段落中提取标准译名。
-
-**案例 3：术语直接保留英文不翻译**
-
-`Dawi-Zharr` 在译文中原样保留英文，没有查证。
-- **实际后果**：原版标准译名是**扎尔矮人**（出处 `ancillaries_colour_text_wh3_dlc23_anc_armour_blackshard_armour`）。保留英文属于漏翻。
-- **正确做法**：所有英文专有名词都要查证，查不到才保留原文并标注"待查"。
-
-**案例 4：把概念词当作"诗化标题"擅自改名**
-
-`Heavenly Bowman` 是祟唐在原版库中的固定别称（标准译名**天穹射手**），却自作主张译成"苍天弓神"当作章节标题。
-- **实际后果**：与游戏内术语脱节，玩家无法对应。
-- **正确做法**：原版已有的固定别称/称号，必须采用原版译名，不得为了"听起来更诗意"而改写。即便用作章节标题也应统一。
-
-**案例 5：译文夹带未查证的英文普通词**
-
-译文中出现了 `gibbering 的恶魔`、`razor 锋利的爪刃`、`hamstring 了一头`、`炮兵 crews`、`在 celest 的鏖战中` 等中英混杂写法。
-- **实际后果**：这些是普通英文词（非专有名词），本应译成中文，却因为翻译时图省事直接保留。
-- **正确做法**：译文中除原版保留的专有英文（如 `Waaagh!`、武器原名 `Gitsnik`）外，不允许出现未翻译的英文单词。翻译完成后必须做一次全文扫描（可用脚本检测 text 列中长度 ≥ 4 的英文单词）。
-
-**案例 6：武器名括注错误**
-
-`Gitsnik`（格里姆格的战斧）首次出现时括注为"（碎颅者）"。
-- **实际后果**：原版标准译名是**灭人斧**（出处 `ancillaries_onscreen_name_wh_main_anc_weapon_gitsnik`）。"碎颅者"是凭印象编的。
-- **正确做法**：武器/物品名同样要走查证流程。
-
-### 校对已翻译文本中的术语（第三方/旧翻译校正）
-
-对**已有中文译文**的条目进行术语校对时，不能直接拿中文词去原版库搜——中文词
-本身可能就是错的。必须采用"中文→英文→标准流程"的绕回查证法：
-
-#### 校对流程
-
-```
-已有中文条目中的疑似译名（如"提尔赛斯"）
-    │
-    ▼ 步骤 A：找到该条目对应的英文原文
-    ├─ 有英文源文件（mod/xxx/english/text/）→ 直接按 key 匹配
-    ├─ 无英文源文件 → 从条目 key 名反推英文关键词
-    │
-    ▼ 步骤 B：从英文原文中提取该专有名词的准确英文拼写
-    ├─ "提尔赛斯" → 对应 EN 文本中的 "Tirsyth"
-    │
-    ▼ 步骤 C：用该英文术语走标准翻译查询流程
-    ├─ 步骤 0：查术语库 → 命中则直接复用
-    ├─ 步骤 1：在 EN 目录下搜 "Tirsyth" → 找到 key
-    ├─ 步骤 2：用 key 在 CN 库查官方译名 → "提西茨"
-    │
-    ▼ 步骤 D：对比官方译名与 mod 中文译文
-    ├─ 一致 → 通过
-    └─ 不一致 → 替换为官方译名（"提尔赛斯" → "提西茨"）
-```
-
-#### 反面案例
-
-**`提尔赛斯——灰烬厅`**：
-- 中文文本看起来通顺（一个音译地名 + 意译描述），不对比英文无法发现错误
-- 英文原文为 `Tirsyth`（key: `wh_dlc05_wef_tree_tirsyth`）
-- 官方 CN 译名为 **提西茨**
-- `提尔赛斯` 是旧译者凭音感自创的译名，与原版不符
-
-**教训**：**不能凭中文语感判断译文是否正确。** 必须找到英文原名，再走标准查证流程。
-
-#### 批量校对策略
-
-1. 从 mod 英文源文件中提取所有大写专有名词（地名/人名/物品名/单位名等）
-2. 对每个英文专有名词，走标准流程查官方 CN 译名
-3. 在 mod 的中文文件中搜索官方 CN 译名是否存在
-4. 不存在 → 该条目用了错误译名 → 找出用了什么、替换为官方译名
-5. 存在 → 候选通过（但仍需人工抽检，防止同词异译恰好撞上）
-
-
-## 被动技能图标绘制规则
-
-适用范围：`mod/[MOD名]/ui/battle ui/ability_icons/*.png` 中需要改成被动/常驻技能视觉风格的小图标。
-
-### 目标风格
-
-- 参考图优先使用：`源码/ui/battle ui/ability_icons/ballistic_plating.png`。
-- 成品尺寸必须为 **38×38 PNG**，保留 alpha 透明通道，推荐保存为 `Format32bppArgb`、约 96 DPI。
-- 图标角落必须透明；外侧阴影应使用参考图那种 **逐渐淡化的 alpha 边缘**，不要做成实心方底。
-- 黑边只能是 **窄、柔和、渐隐** 的暗边；禁止做成明显粗黑环、硬切圆框、过宽黑框。
-- 主体图案大小要接近参考图占位。旧 59×59 技能图标通常先把主体缩到约 **0.86** 的占位，再压制到 38×38；如果视觉上过小或过大，可微调，但必须先看放大预览。
-- 保留原图的核心图案、方向、颜色身份和可识别特征；除非用户明确要求重绘，不要让 AI 生成替换掉原图案。
-
-### 推荐制作流程
-
-1. 修改前先读取目标 PNG 和参考 PNG，并检查目标文件当前状态；不要基于记忆编辑。
-2. 可以用 `imagegen` 做风格参考或预览，但最终写回时优先以原始 PNG 为源做确定性像素处理，避免图案被 AI 改形。
-3. 将源图居中缩放到目标占位，再缩到 38×38。
-4. 最终 alpha 建议复用参考图 `ballistic_plating.png` 的透明度梯度，以获得相同的透明角、柔边和阴影过渡。
-5. 外圈处理原则：
-   - 源图透明或接近透明的边缘区域，输出为中性黑色并使用参考 alpha，形成柔和阴影；
-   - 仅在最外侧 1–2 像素做轻微变暗；
-   - 不要覆盖主体区域，不要生成宽黑框。
-6. 临时预览可放在 `tmp/` 下，写回源文件后应清理临时目录。
-7. 只改工作区源 PNG；不要打包 `.pack`，不要检查或质疑用户的 pack 覆盖流程。
-
-### 验证清单
-
-- [ ] 最终 PNG 为 38×38。
-- [ ] PNG 带 alpha，角落透明，边缘有渐隐阴影。
-- [ ] 黑边不粗、不硬、不显眼。
-- [ ] 主体图案大小与参考图接近，未贴边挤满。
-- [ ] 原图案可识别性保留，没有被 AI 重绘成别的图案。
-- [ ] 用原始大小和 8 倍黑底预览各看一次。
-- [ ] 报告所有写回的源文件路径；不执行 pack 打包。
-
-
-## 战斗主动技能图标绘制规则
-
-当用户要求重绘、优化或统一战斗技能图标，尤其是主动技能图标时，按以下规则执行：
-
-1. 始终先确认源文件。用本地化文本或技能 key 在 `mod/<MOD名>/text/db/` 与 `mod/<MOD名>/db/unit_abilities_tables/` 中定位技能，再确认 `icon_name` 对应的 PNG 路径，不要仅凭图案猜文件名。
-2. 修改前先读取当前 PNG 的尺寸、像素格式、哈希，并目视查看当前图标。若用户给了参考图，也先读取参考图。
-3. 图标统一输出为 `59x59` PNG，优先转为 `Format24bppRgb`，保存到 `ui/battle ui/ability_icons/<icon_name>.png`。
-4. 主动技能图标应保持 Total War 技能图标风格：内部为圆形构图，外缘有暗角或金属/魔法边框，表面带轻微玻璃高光；主体图案要居中、简洁、高对比，在 `59x59` 缩略图下仍可辨认。
-5. 主体内容按用户指定主题或参考图绘制。保留参考图的核心轮廓、颜色关系和识别点，但要重绘为本 MOD 已采用的圆形玻璃化画风；不要照搬矩形卡片、透明背景或不一致的外框。
-6. 主动技能可比被动/特质图标更有“施放感”：允许加入旋涡、光环、护盾、火焰、风流、符文光、粒子和方向性动势，但不要让特效遮住主题主体。
-7. 禁止在图标中加入文字、字母、水印、人物大脸、UI 说明文字或过多小物件。若主题是物品，应让物品轮廓占据中心；若主题是光环/庇佑，应让核心符号与环形保护感清楚。
-8. 使用 `imagegen` skill 的内置 `image_gen` 流程。生成的资产先存到工具的生成目录，再复制/缩放进工作区最终路径；不要把项目引用资产只留在生成目录。
-9. 覆盖源 PNG 后，必须验证：尺寸为 `59x59`、PNG 存在、`unit_abilities_tables` 的 `icon_name` 与文件名一致，并目视检查最终缩略图。
-10. 只改源文件，不执行 pack 打包、导入或覆盖 pack。最终回复中说明保存路径、是否修改 DB、是否未打包，以及使用的图像生成方式和提示词概要。
+新建传奇领主/英雄的完整流程（设计稿确认、DB 表全量清单、命名与 ID 调查方法、战役动作链、美术与本地化清单、验收清单），见 `warhammer-mod-character-creation` 技能。
 
 
 ## 开发工作流
-
-### 硬性边界：不修改第三方 MOD 源码
-
-排查任何问题时，第三方 MOD 源码只能读取、搜索、对照和引用，**不得编辑**。
-
-- `mod/第三方MOD/` 下的文件默认全部视为只读。
-- 用户明确称为第三方、参考、原始、对照或外部来源的 MOD 文件默认只读，即使不在 `mod/第三方MOD/` 下。
-- 即使日志显示第三方脚本或 DB 报错，也不要直接修第三方 MOD；应在用户维护的目标 MOD、兼容补丁、DB 覆盖或自身脚本防护中解决。
-- 若需要验证第三方行为，可以读取日志、源码和 DB 链路，但不能写回第三方文件，不能用格式化工具或批量命令改动第三方目录。
-- 只有用户明确要求“修改这个第三方 MOD 源码”时，才允许编辑该第三方 MOD。
-- 如果误改了第三方 MOD，必须立即只回滚自己造成的第三方文件改动，并向用户说明。
 
 ### 重要：查看游戏日志
 
@@ -678,6 +518,18 @@ Grep pattern: "Iron Dragon|Jade Dragon|Heavenly Bow|Tiger Court|..."
 2. 用 `read_file` 的 `start_line`/`end_line` 读取日志末尾部分
 3. 用 Grep 搜索时尝试加 `--encoding utf-16le` 参数
 4. 如果以上都失败，让用户确认文件编码（用 `file` 命令或编辑器查看）
+
+### 战斗能力目标链与涡流数值排查
+
+先按日志边界定位故障层，再修改数据：`能力指令收到` → `手动目标捕获` → `瞬移/施法命令发出` → `命中或爆炸效果`。缺少哪一条，就只排查该边界；不要在目标尚未捕获时修改伤害或生命 API。
+
+- 多段爆炸、连锁技能的隐藏 `unit_special_abilities` 可能没有独立伤害/半径；先沿其 `vortex` 字段回溯到同一条 `battle_vortexs` 记录。五个隐藏技能共享同一 `vortex_key` 时，只需修改共享行，并用 TSV 查询确认没有漏引用。
+- `battle_vortexs.damage` 是普通伤害，`damage_ap` 是破甲伤害，`start_radius`/`goal_radius` 是涡流作用半径，`expansion_speed` 决定在 `duration` 内能否达到目标半径。扩大 `goal_radius` 时，若持续时间不变，按 `goal_radius / duration` 同步检查扩张速度。
+- `unit_special_abilities.effect_range`、`target_intercept_range` 与涡流半径不是同一字段：前者可为自体中心的 `0`，后者控制手动目标可选的施法距离；不要因隐藏爆炸行的 `effect_range=0` 就判定爆炸没有范围。
+- `composite_scene` 只决定视觉特效资源；画面大小不变不能证明命中半径不变。分别验证 DB 数值和游戏内命中结果，必要时再单独处理 VFX。
+- 手动目标标记必须使用原版 `unit_attributes_tables` 中已存在、可叠加的属性；`special_ability_phase_attribute_effects.attribute_type=positive` 才是施加属性，`negative` 用于移除属性。脚本 `has_attribute` 找不到标记时，先查主技能的 `target_enemies`/`only_affect_target`/`target_intercept_range`，再沿 `special_ability_to_special_ability_phase_junctions` → `special_ability_phases` → `special_ability_phase_attribute_effects` 核对目标相位的 `affects_enemies`、原版标记属性和正负类型，并核对脚本的存活、敌我、标记分数与距离边界；此阶段不要改伤害或 vortex。禁止新增自定义 unit attribute。
+- 生命百分比交换必须先缓存双方 `unary_hitpoints()`，再写回：`heal_hitpoints_unary(desired_fraction, false)` 设为目标比例，`reduce_hitpoints_unary(current_fraction - desired_fraction)` 扣除差值。只有日志出现“目标已捕获”后，才诊断这两个 API。
+- 静态回归至少断言：所有隐藏技能的 `vortex` 引用、涡流伤害/半径字段、目标 `target_intercept_range`、目标标记数量与 `positive` 类型；再检查 TSV 列数、运行 `luac -p`（有 Lua 改动时）和作用域化 `git diff --check`。
 
 ### 重要：UI 运行时结构与 XML 静态定义的差异
 
@@ -720,6 +572,38 @@ root > units_panel > main_units_panel > recruitment_docker > recruitment_options
 - 搜索功能：`Grep` 工具，设置搜索路径为源码目录
 
 ## 附加资源
+
+### 大地图与战斗骑手骨骼、动作匹配
+
+- 大地图角色的 `campaign_character_arts_tables.land_animation`、`campaign_mount_animation_set_overrides_tables.character_animation_set` 与 `rider_animation_set` 必须和骑手模型的骨骼类型一致；不得因角色外观或性别而跨骨骼套用动作。
+- 例如，穗香的骑手骨骼为 `hu1`，陆地及坐骑骑手动作只能使用 `cam_hu1_*`；不得使用 `cam_hu1e_*`。跨骨骼会造成十字摆姿或错误的默认外观。
+- 排查大地图骑乘异常时，先沿上述三项动作键确认骨骼前缀一致，再检查 `agent_uniforms`、`variants` 和模型资源；战斗模型正常不代表大地图动作链有效。
+- **战斗表是独立键域。** `battle_personalities_tables.man_animations_table` 与 `land_units_tables.man_animation` 都引用 `battle_animations_table.key`；即使 TSV 列数正确，键不存在也会被 RPFM 以 `Invalid reference` 拒绝导入。
+- `cam_*` 仅属于大地图动作链，绝不能填入上述战斗字段，也不能靠删除 `cam_` 前缀推导战斗键。某个 `cam_hu1_empire_dr1_dragon_wb_sword_and_shield` 可以合法，但对应的 `hu1_empire_dr1_dragon_wb_sword_and_shield` 未必存在于战斗动画表。
+- 修改坐骑战斗动作前，先在 `源码/db/battle_animations_table_tables/data__.tsv` 查找精确键，并核对本地 `schema_wh3.ron` 中字段的引用目标和可空性；再按骑手骨骼、武器和坐骑选用原版同类基准。相同骑手/坐骑的两张战斗表应使用同一或经原版证明兼容的键，战役覆盖表继续保留对应的 `cam_*` 键。
+- 本例的女性持剑盾龙骑兵：`hu1_empire_dr1_dragon_wb_sword_and_shield` 为无效战斗键；可用且有原版女性龙骑兵先例的是 `hu1b_elf_dr1_dragon_wb_sword_and_shield`。这只是该骨骼/武器组合的基准，不能不经验证套用到其他角色。
+- 导入前对所有改动的坐骑行验证：字段列数等于表头、每个战斗动画键存在于 `battle_animations_table.key`、无旧无效键残留，并运行 `git diff --check`；只改源 TSV，不打包 `.pack`。
+
+### 骑手错位、挂点与飞行坐骑排查顺序
+
+- 若骑手动作会播放、却没有正确坐在坐骑上，先查 `land_units_to_battle_personalities_junctions_tables.attach` 与 `riders_attachment_point`，不要继续盲换动作。必须以**相同 mount key 的原版单位**为基准；挂点名不可跨坐骑套用。例如高精耀星龙使用 `autonomous_rider` + `ap_riderpos_0`，`ap_riderposition_0` 是其他坐骑的不同挂点，拼写近似也会导致骑手错位。
+- 挂点正确后，再同时核对 `land_units_tables.man_animation`、`battle_personalities_tables.man_animations_table` 与骑手 RMV2 骨骼；两张战斗表使用同一或原版证明兼容的动作键，且该键在 `battle_animations_table_tables` 中的骨骼必须匹配。不要由 `cam_*` 键名推导战斗键。
+- 只有在活动 `.variantmeshdefinition` → `.wsmodel` → `.rigid_model_v2` 链明确显示根骨骼名称不一致时，才处理 `animroot`/`animRoot` 之类的大小写问题；先备份，确认替换为等长且仅改目标字节，并核对替换数量与文件长度。它不是挂点错误的替代诊断。
+- 飞行坐骑不能只看 `mounts_tables`、`land_units` 的 `flying_*` AI 分组或 UI 的 `can_fly` 文案；必须沿 `land_units_tables.attribute_group` → `unit_attributes_to_groups_junctions_tables` 确认该单位实际获得原版 `flying` 属性。
+- 若自定义坐骑复用了不含 `flying` 的原版属性组，不要给共享原版组补属性而影响其他单位；复制原组实际属性到 MOD 自有属性组，额外加入 `flying`，再仅让该自定义 `land_units` 指向新组。若仍无法飞行，再按同类原版单位核对 `unit_set_to_unit_junctions_tables` 的 `all_units_excluding_flying` 和是否应使用 `always_flying`。
+- 最终验证除 TSV 列数与引用外，还要确认原版同类坐骑确实存在所选挂点、所有自定义属性键来自原版 `unit_attributes_tables`，并运行作用域化 `git diff --check`；不打包 `.pack`。
+
+### 仓库根目录专题整理（优先查阅）
+
+涉及**法术/能力 DB、法术技能树、领主/英雄动作**时，必须先查阅仓库根目录下的专题文档，不要仅凭记忆：
+
+| 文档 | 用途 |
+|------|------|
+| [战锤3法术相关DB字段说明.md](../../docs/战锤3法术相关DB字段说明.md) | 法术/能力相关 DB 表与每个字段含义（`unit_abilities`、`unit_special_abilities`、projectile / vortex / phase 等） |
+| [战锤3原版法术类角色技能整理.md](../../docs/战锤3原版法术类角色技能整理.md) | 原版各学派法术类角色技能 key、中文名与等级效果 |
+| [战锤3原版领主与英雄动作整理.md](../../docs/战锤3原版领主与英雄动作整理.md) | 原版领主与英雄动作 / 动画参考 |
+
+相对路径：见本仓库 `docs/` 目录，由 development skill 通过 `../../docs/战锤3*.md` 引用（保持 `skills/` 与 `docs/` 的相对结构即可生效）
 
 ### 基础参考
 - TSV格式详情，参见 [references/tsv_format.md](references/tsv_format.md)
