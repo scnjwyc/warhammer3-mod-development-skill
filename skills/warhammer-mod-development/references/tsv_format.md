@@ -1,52 +1,26 @@
-# RPFM TSV 文件格式规范
+# RPFM TSV 格式与增量修改
 
-## 基本规则
+DB TSV 的第一行是 Tab 分隔列名，第二行是 `#<table>;<version>;db/<table>/<packed_name>`，第三行起为数据。格式、字段顺序和版本以当前 RPFM 导出与 schema 为准，不使用无表头“模式 B”。
 
-TSV文件用于覆盖战锤3的数据库表，必须严格遵循RPFM读写的格式。
-
-## TSV格式
-
-```
-列名1	列名2	列名3	...             ← 第1行：列名（Tab分隔）
-#表名;版本号;相对路径                  ← 第2行：元数据
-数据1	数据2	数据3	...             ← 第3行起：数据
+```text
+effect_bundle_key<TAB>effect_key<TAB>effect_scope<TAB>value<TAB>advancement_stage
+#effect_bundles_to_effects_junctions_tables;3;db/effect_bundles_to_effects_junctions_tables/!my_bundle
+my_bundle<TAB>wh_main_effect_force_all_campaign_upkeep<TAB>faction_to_force_own_unseen<TAB>-30.0000<TAB>start_turn_completed
 ```
 
-示例（effect_bundles_to_effects_junctions_tables）：
-```
-effect_bundle_key	effect_key	effect_scope	value	advancement_stage
-#effect_bundles_to_effects_junctions_tables;3;db/effect_bundles_to_effects_junctions_tables/!!wyccc_cathay_nonorder_buffs				
-wyccc_nonorder_buff_lv1	wh_main_effect_force_all_campaign_upkeep	faction_to_force_own_unseen	-30.0000	start_turn_completed
-```
+示例的 `<TAB>` 表示真实制表符；版本 3 仅是示例。内部路径不带 `.tsv`，末段等于源文件去掉 `.tsv` 的名称。复制原版 `data__.tsv` 为增量文件后必须同步修改元数据路径。
 
-## 元数据行格式
+## 整行数据完整性
 
-`#<表名>;<版本号>;<相对路径>`
+补丁中参与覆盖的记录必须包含该行全部字段，空值不会自动继承被覆盖行。读取同 key 的完整基准行，只改目标字段，非目标列逐项保持一致。`!` 是文件命名/排序约定，不是 RPFM 的字段合并操作。
 
-- `<表名>`：与源码db目录下的表目录名完全一致
-- `<版本号>`：格式版本。如果不确定，查找源码中的同表格版本号
-- `<相对路径>`：从db/开始的完整相对路径，如 `db/effects_tables/!!wyccc_cathay_internal_alliance.tsv`
+每条数据行的列数等于表头。末尾字段为空时保留必要尾部 Tab，不用 `strip()` 删掉它们。空字段用连续 Tab 表示。UTF-8 编码及 BOM 按当前工具导出保留，读取时兼容 BOM；不能靠统一增删 BOM 修复数据链问题。
 
-## 如何判断使用哪种模式
+## 字段与引用
 
-**必须检查源码中对应表的 `data__.tsv` 和已有MOD中同表的文件：**
+- 数值 ID 先查 schema 类型；I32 范围为 -2147483648 至 2147483647，I64 为 -9223372036854775808 至 9223372036854775807。不能使用超过字段范围的 ID，不能把某个“大数区间”视为永远无冲突。
+- 检查所有改动表和已加载依赖中的主键/组合主键。对浮点值保留合理精度，对 bool 使用导出格式。
+- 用当前引用表验证键，而非从相似名称推导。不能向 `unit_attributes_tables` 添加自定义引擎属性；自有属性组组合原版合法属性即可。
+- 表结构检查、引用检查与游戏机制是三个层次。导入成功后读回实际行数及关键列，确认无漏行、空表和意外清空字段。
 
-1. 打开 `源码/db/<table_name>/data__.tsv` 查看格式
-2. 打开 `mod/*/db/<table_name>/` 查看已有MOD文件的格式
-3. 保持与已有MOD文件一致的格式
-
-**一般规律**：
-- 大多数表使用模式A（带表头）
-- 少数表（如 `effects_tables`）在MOD文件中使用模式B（无表头）
-- 如果源码和已有MOD格式不同，优先使用已有MOD的格式
-
-## RPFM兼容性检查要点
-
-1. **列数据不能包含未转义的Tab**：确保数据中无多余Tab
-2. **元数据行中空列用Tab填充**：`#` 行中版本号后的路径部分，空字段用Tab占位
-3. **数值格式**：带小数的值使用4位小数（如 `-30.0000`），整数可以不用小数
-4. **末尾无多余空行**：文件末尾不要有多余的空行或Tab
-5. **编码**：UTF-8 with BOM（RPFM默认）
-6. **空值处理**：空字段用连续Tab表示（如 `value1\t\tvalue3`）
-7. **隐藏文本**：本地化字段使用 `[hidden]` 表示该bundle不显示给玩家
-8. **没有尾部Tab**：每行末尾不要有多余的Tab字符
+文件命名见 [命名约定](naming_conventions.md)。LOC 转义和校验见 [本地化技能](../../warhammer-mod-translation/SKILL.md)。导入与诊断见 [Pack 工作流](pack-workflow.md)。

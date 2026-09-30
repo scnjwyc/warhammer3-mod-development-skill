@@ -1,0 +1,191 @@
+{
+  "Allow None Selected": [
+    "1"
+  ],
+  "Single Selection": [
+    "1"
+  ],
+  "Tab Spacing": [
+    "0"
+  ],
+  "auto_adjust_anim": [
+    "1"
+  ],
+  "border_height": [
+    "0"
+  ],
+  "border_width": [
+    "0"
+  ],
+  "button_size": [
+    "55"
+  ],
+  "button_spacing": [
+    "0"
+  ],
+  "cached_number_of_available_skulls": [
+    "0"
+  ],
+  "can_show_alert": [
+    "1"
+  ],
+  "disable_override": [
+    "StatePropagatorCallback",
+    "callbacks",
+    "instance_resize",
+    "resizable"
+  ],
+  "disable_override0": [
+    "CallbackAnimTrigger"
+  ],
+  "disable_override1": [
+    "ContextOpacitySetter"
+  ],
+  "dynamic_child": [
+    "",
+    "1"
+  ],
+  "dynamic_child_parent": [
+    "button_atamans",
+    "button_bloodlines",
+    "button_cloak_of_skulls",
+    "button_daemonic_progression",
+    "button_default",
+    "button_factions",
+    "button_general",
+    "button_grudges",
+    "button_ice_court",
+    "button_missions",
+    "button_ogre_contracts",
+    "button_rituals",
+    "button_spawn_unique_agent",
+    "button_technology",
+    "button_treasure_hunts",
+    "button_wrath_of_khorne",
+    "checkbox_toggle",
+    "tab_events",
+    "tab_factions",
+    "tab_regions",
+    "tab_units"
+  ],
+  "dynamic_image": [
+    "",
+    "0"
+  ],
+  "extra_horizontal_padding": [
+    "10",
+    "3"
+  ],
+  "extra_vertical_padding": [
+    "20"
+  ],
+  "fade_out_time": [
+    "500"
+  ],
+  "fade_out_zone": [
+    "50"
+  ],
+  "follow_camera": [
+    "1"
+  ],
+  "frame_name": [
+    "UI/sprite_anims/sword_of_khaine_button/button_flame"
+  ],
+  "icon_index": [
+    "0"
+  ],
+  "last_frame": [
+    "59"
+  ],
+  "layout": [
+    "ui/campaign ui/camera_settings"
+  ],
+  "loops": [
+    "-1"
+  ],
+  "match_width": [
+    "1"
+  ],
+  "max_stack_height": [
+    "10"
+  ],
+  "max_text_width": [
+    "300"
+  ],
+  "min_text_height": [
+    "200"
+  ],
+  "min_width": [
+    "680"
+  ],
+  "mission_category": [
+    "treasure_hunt_coast"
+  ],
+  "num_elements_threshold": [
+    "6"
+  ],
+  "open_message": [
+    "commandment_available"
+  ],
+  "original_button_size": [
+    "63"
+  ],
+  "override_sound": [
+    ""
+  ],
+  "padding": [
+    "3"
+  ],
+  "pre_cache": [
+    "1"
+  ],
+  "radius": [
+    "100"
+  ],
+  "randomise_start_frame": [
+    "0"
+  ],
+  "repositioning_disabled": [
+    "1"
+  ],
+  "reverse": [
+    "0"
+  ],
+  "ritual_category": [
+    "STANDARD_RITUAL"
+  ],
+  "side_padding": [
+    "54"
+  ],
+  "spacing": [
+    "40"
+  ],
+  "starting_angle": [
+    "212"
+  ],
+  "starts_showing": [
+    "1"
+  ],
+  "time_per_frame": [
+    "30"
+  ],
+  "toggle_panel": [
+    "info_panel_background",
+    "info_panel_holder"
+  ],
+  "tooltip_dock": [
+    "9"
+  ],
+  "web_button_spacing": [
+    "20"
+  ],
+  "zoom_increment": [
+    "0.5"
+  ],
+  "zoom_max": [
+    "5"
+  ],
+  "zoom_min": [
+    "1.2"
+  ]
+}

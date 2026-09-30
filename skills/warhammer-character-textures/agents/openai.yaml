@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warhammer Character Textures"
+  short_description: "Classify, verify, restore, and safely apply BC1/BC3/BC7 character DDS textures"
+  default_prompt: "Use $warhammer-character-textures to restore original LDR character textures, classify DXT1/DXT5/BC7 targets, verify dimensions and mips, apply converted outputs, and sync the mapped source Pack."

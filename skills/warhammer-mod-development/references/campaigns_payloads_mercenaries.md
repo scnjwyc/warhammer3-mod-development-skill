@@ -53,7 +53,7 @@ campaign_groups                组定义（仅 id）
 | `context` | 上下文（如 `ACTOR` 主角派系） |
 | `faction` | 派系 key |
 
-⚠️ **一对一约束**：每个 `member` 只能绑定**一个** `faction`。若同一 member 对应多个 faction，引擎只对第一个生效，其余被忽略。给多个派系下功能，必须为每个派系建独立 member key，再统一注册到同一 group。详见 SKILL.md「Campaign Group Member 一对一约束」。
+⚠️ **一对一约束**：每个 `member` 只能绑定**一个** `faction`。若同一 member 对应多个 faction，引擎只对第一个生效，其余被忽略。给多个派系下功能，必须为每个派系建独立 member key，再统一注册到同一 group。多派系逐个 member 的结构以当前同类原版数据核对。
 
 #### `campaign_group_member_criteria_numeric_ranges_tables` — 数值范围条件
 | 列 | 说明 |

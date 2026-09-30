@@ -1,0 +1,71 @@
+TWUI Studio Non-Commercial Source License 1.0
+Copyright (c) 2026 Backmechuisa. All rights reserved except as expressly granted below.
+
+한국어
+
+1. 비영리 허가
+저작권자는 누구에게나 TWUI Studio의 소스코드와 프로그램을 개인적·교육적·연구적·커뮤니티 모딩 목적 등 비영리 목적으로 사용, 열람, 복제, 수정하고 파생 버전을 제작·배포할 수 있는 전 세계적이고 사용료 없는 비독점적 라이선스를 부여합니다.
+
+2. 재배포 조건
+원본 또는 수정본을 배포할 때에는 다음 조건을 모두 지켜야 합니다.
+a. 이 LICENSE.txt, 제작자 표시 및 THIRD_PARTY_NOTICES.txt를 삭제하거나 변경하지 않고 함께 제공합니다.
+b. 변경한 파일과 중요한 변경 내용을 명확히 표시합니다.
+c. 수정본과 파생 버전에도 이 라이선스와 동일한 비영리 제한을 적용하고, 수령인에게 해당 소스코드를 함께 제공하거나 무료로 받을 수 있는 위치를 명시합니다.
+d. 원 제작자나 관련 권리자가 수정본을 제작·보증·승인했다는 인상을 주지 않습니다.
+
+3. 영리 이용의 영구적 금지
+저작권자의 별도 서면 허가 없이 TWUI Studio 또는 그 일부나 파생물을 직접 또는 간접적인 영리 목적으로 이용할 수 없습니다. 금지되는 행위에는 판매·대여·유료 라이선스, 유료 서비스나 구독의 일부로 제공, 광고·후원·접근료 또는 기타 금전적 이익을 얻기 위한 배포·호스팅·사용, 상업 제품이나 서비스에 통합하는 행위가 포함됩니다.
+
+이 영리 이용 금지는 원본과 모든 수정본·파생 버전에 계속 적용됩니다. 이 라이선스에 따라 적법하게 부여된 비영리 권한은 저작권자가 임의로 철회하지 않지만, 이용자가 조건을 위반하면 해당 이용자의 권한은 자동 종료됩니다. 종료 후 위반을 중단하고 배포물을 회수해야 합니다. 별도의 상업용 허가는 저작권자가 명시적으로 서명한 문서로만 부여할 수 있습니다.
+
+4. 정상적인 결과물
+TWUI Studio의 정상 기능을 사용하여 이용자가 직접 제작하거나 편집한 UI XML, 모드 및 기타 결과물은 그 결과물에 TWUI Studio 소스코드의 실질적인 부분이 포함되지 않는 한 이 라이선스의 영리 금지 대상이 아닙니다. 해당 결과물에는 게임과 사용 자료의 별도 이용 조건이 적용됩니다.
+
+5. 금지 및 권리 유보
+제작자 표시를 제거·변경하거나 제작자를 사칭할 수 없습니다. 악성 코드 삽입, 불법적인 변조 또는 불법 행위에 사용할 수 없습니다. 이 문서에서 명시적으로 허가하지 않은 모든 권리는 저작권자에게 유보됩니다.
+
+6. 보증 및 책임 제한
+프로그램과 소스는 현 상태로 제공됩니다. 법이 허용하는 최대 범위에서 상품성, 특정 목적 적합성, 무오류 작동 및 비침해에 관한 명시적·묵시적 보증을 하지 않습니다. 저작권자는 사용 또는 배포로 인한 손해에 대해 법이 허용하는 범위에서 책임을 지지 않습니다. 법률상 배제할 수 없는 권리는 제한하지 않습니다.
+
+7. 게임 및 제3자 권리
+Total War: WARHAMMER III의 원본 XML, 이미지, 상표 및 기타 게임 리소스의 권리는 Creative Assembly, SEGA, Games Workshop 등 각 권리자에게 있습니다. 이 라이선스는 그러한 자료에 대한 소유권이나 별도의 재배포 권리를 부여하지 않습니다. Python, Tcl/Tk, Pillow, PyInstaller 등 제3자 구성요소에는 각각의 라이선스가 우선 적용됩니다.
+
+이 프로젝트는 OSI가 승인한 오픈 소스가 아니라 비영리 조건의 소스 공개 소프트웨어입니다.
+
+허가 문의: Steam Workshop 모드 크리에이터 Backmechuisa
+
+======================================================================
+
+English
+
+1. Non-commercial grant
+The copyright holder grants anyone a worldwide, royalty-free, non-exclusive license to use, inspect, copy, modify, create derivative versions of, and distribute TWUI Studio's source code and program solely for non-commercial purposes, including personal, educational, research, and community modding purposes.
+
+2. Distribution conditions
+Any distribution of the original or a modified version must:
+a. include this LICENSE.txt, the creator credits, and THIRD_PARTY_NOTICES.txt without removal or alteration;
+b. clearly identify modified files and material changes;
+c. apply this same non-commercial license to the modified or derivative version and provide its corresponding source code with the distribution or identify a place where recipients can obtain it at no charge; and
+d. not imply that the original creator or relevant rights holders created, warranted, or endorsed the modified version.
+
+3. Continuing prohibition on commercial use
+Without separate written permission from the copyright holder, TWUI Studio, any portion of it, and any derivative may not be used directly or indirectly for a commercial purpose. Prohibited conduct includes sale, rental, paid licensing, inclusion in a paid service or subscription, distribution, hosting, or use intended to obtain advertising revenue, sponsorship revenue, access fees, or other monetary advantage, and integration into a commercial product or service.
+
+This commercial-use prohibition continues to apply to the original and every modified or derivative version. Non-commercial rights properly granted under this license are not revocable at the copyright holder's discretion, but a recipient's rights terminate automatically upon breach. After termination, the recipient must cease the breach and withdraw infringing distributions. A separate commercial license may be granted only in a document expressly signed by the copyright holder.
+
+4. Normal output
+UI XML, mods, and other output independently created or edited by a user through TWUI Studio's normal functions are not subject to this license's commercial restriction unless they contain a substantial portion of TWUI Studio source code. Separate terms governing the game and source materials still apply to that output.
+
+5. Restrictions and reservation of rights
+Creator credits may not be removed or altered, and authorship may not be falsely claimed. The software may not be used to insert malicious code, perform unlawful tampering, or facilitate unlawful acts. All rights not expressly granted are reserved by the copyright holder.
+
+6. Disclaimer and limitation of liability
+The program and source are provided as-is. To the maximum extent permitted by law, no express or implied warranty is made, including warranties of merchantability, fitness for a particular purpose, error-free operation, or non-infringement. The copyright holder is not liable for damages arising from use or distribution to the extent permitted by law. Rights that cannot lawfully be excluded remain unaffected.
+
+7. Game and third-party rights
+Rights in original Total War: WARHAMMER III XML, images, trademarks, and other game resources belong to Creative Assembly, SEGA, Games Workshop, and their respective owners. This license grants no ownership of, or separate redistribution rights in, those materials. Third-party components such as Python, Tcl/Tk, Pillow, and PyInstaller remain governed by their own licenses.
+
+This project is source-available under non-commercial terms and is not OSI-approved open-source software.
+
+Permission requests: Steam Workshop mod creator Backmechuisa
+

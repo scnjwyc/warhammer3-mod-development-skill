@@ -1,160 +1,41 @@
-# Lua 常用API参考
+# Lua 生命周期与 API
 
-## campaign_manager (`cm:`) 核心API
+按 Lua 5.1 兼容子集编写；不使用 `goto`、标签、`//`、位运算符或 `continue`。用对应版本的 `luac -p` 检查；高版本 luac 通过不能证明 5.1 兼容。
 
-### 派系操作
+## 初始化与监听
 
-```lua
--- 获取派系对象
-cm:get_faction(faction_key) → faction对象/nil
-
--- 强制结盟
-cm:force_alliance(faction_a_key, faction_b_key, make_allies)  -- make_allies: true=军事同盟
-
--- 强制合邦
-cm:force_confederation(faction_a_key, faction_b_key)
-```
-
-### Effect Bundle操作
+`cm:add_first_tick_callback` 适合每次会话（新局和读档）都需恢复的战役监听与状态；`cm:add_first_tick_callback_new` 仅用于新局初始化，不能把需要读档后恢复的监听放在那里。监听是否生效取决于实际加载与注册时机，不以“顶层注册一定无效”作为引擎规则。
 
 ```lua
--- 创建自定义effect bundle（动态）
-cm:create_new_custom_effect_bundle(bundle_key) → effect_bundle对象
-
--- 应用DB中预定义的effect bundle到派系
-cm:apply_effect_bundle(bundle_key, faction_key, turns)  -- turns=0 表示永久
-
--- 移除effect bundle
-cm:remove_effect_bundle(bundle_key, faction_key)
-```
-
-### Effect Bundle对象方法
-
-```lua
--- 向bundle添加效果
-effect_bundle:add_effect(effect_key, scope, value)
-
--- 设置持续时间（0=永久）
-effect_bundle:set_duration(turns)
-
--- 应用到派系
-cm:apply_custom_effect_bundle_to_faction(effect_bundle, faction_object)
-```
-
-### 存档操作
-
-```lua
--- 读取存档值
-cm:get_saved_value(key) → value 或 nil
-
--- 写入存档值
-cm:set_saved_value(key, value)
-```
-
-### 回调注册
-
-```lua
--- 首帧回调（游戏开始）
-cm:add_first_tick_callback_new(function(context)
-    -- 初始化代码
-end)
-
--- 每回合回调
-cm:add_turn_callback(function(context)
-    -- 每回合执行的代码
-end)
-
--- 延迟回调（秒为单位）
-cm:callback(function()
-    -- 延迟执行的代码
-end, delay_seconds)
-```
-
-### 回合/模型信息
-
-```lua
--- 获取当前回合数
-cm:model():turn_number() → number
-
--- 获取战役名称
-cm:model():campaign_name_key() → string
-```
-
-### 输出日志
-
-```lua
-out(message)  -- 输出到游戏日志
-script_error(message)  -- 输出错误并可能中止
-```
-
-## Faction对象方法
-
-```lua
-local faction = cm:get_faction(faction_key)
-
--- 存活性检查（必须先检查！）
-faction:is_dead() → boolean
-faction:is_null_interface() → boolean
-
--- Bundle检查
-faction:has_effect_bundle(bundle_key) → boolean
-
--- 同盟检查
-faction:allied_with(other_faction_object) → boolean
-```
-
-## Lua文件结构模板
-
-```lua
--- wyccc_<功能名>.lua
--- MOD名称：<功能描述>
-
-local MODULE_KEY = "wyccc_<功能名>"
-
--- 常量定义
-local MAX_LEVEL = 5
-local TURNS_PER_LEVEL = 20
-
--- 工具函数
-local function is_faction_alive(faction_key)
-    local faction = cm:get_faction(faction_key)
-    return faction and not faction:is_dead() and not faction:is_null_interface()
-end
-
--- 核心逻辑函数
-local function do_something()
-    -- ...
-end
-
--- 初始化回调
-cm:add_first_tick_callback_new(function(context)
-    out(MODULE_KEY .. ": Module registered")
-    cm:callback(function()
-        -- 延迟初始化
-    end, 0.2)
-end)
-
--- 回合回调
-cm:add_turn_callback(function(context)
-    -- 每回合逻辑
+cm:add_first_tick_callback(function()
+    core:remove_listener("my_mod_turn")
+    core:add_listener("my_mod_turn", "FactionTurnStart",
+        function(context)
+            local faction = context:faction()
+            return faction and not faction:is_null_interface() and faction:is_human()
+        end,
+        function(context)
+            out("my_mod: turn=" .. tostring(cm:turn_number()))
+        end,
+        true)
 end)
 ```
 
-## 常见作用域 (scope)
+`core:add_listener(name, event, condition, callback, persistent)` 的第五参数决定触发后是否保留。监听名需唯一，重复初始化须幂等。延时回调要重新获取可能失效的角色/UI 接口。
 
-| scope | 含义 |
-|-------|------|
-| `faction_to_faction_own_unseen` | 派系→自身（全局效果，不显示UI） |
-| `faction_to_force_own_unseen` | 派系→所有部队 |
-| `faction_to_province_own_unseen` | 派系→所有行省 |
-| `faction_to_region_own_unseen` | 派系→所有地区 |
-| `faction_to_character_own_unseen` | 派系→所有角色 |
-| `force_to_force_own` | 部队→自身 |
+## 按当前脚本和文档核对签名
 
-## 基础错误检查清单
+| 需求 | 常见 API，使用前核对参数 |
+|---|---|
+| 获取派系 | `cm:get_faction(key)`；先判 nil / null，再调用其他方法 |
+| DB 效果包 | `cm:apply_effect_bundle(key, faction_key, turns)`，0 常表示永久 |
+| 动态效果包 | `cm:create_new_custom_effect_bundle(key)`、`bundle:add_effect(key, scope, value)`、`bundle:set_duration(turns)`、`cm:apply_custom_effect_bundle_to_faction(bundle, faction)` |
+| 存档状态 | `cm:get_saved_value(key)`、`cm:set_saved_value(key, value)`，处理旧档 nil 与迁移 |
+| 延迟调用 | `cm:callback(function() ... end, seconds)` |
+| 外交 | `cm:force_alliance` / `cm:force_confederation`；核对当前签名和派系有效性 |
 
-1. `cm:get_faction()` 返回值需检查 `nil`、`is_null_interface()`、`is_dead()`
-2. `out()` 调用需确保参数可转为字符串（使用 `tostring()`）
-3. 延迟回调用 `cm:callback(fn, seconds)` 而非直接调用
-4. 存档读写需处理 `nil` 返回值：`cm:get_saved_value(key) or 0`
-5. `add_effect()` 的 scope 参数必须是有效的作用域字符串
+不要从名字猜 API。文档里的 `源码/` 是 [环境约定](project_structure.md)，缺原版 API 文档时不能宣称签名已确认。
+
+文化与亚文化是不同键域，分别查 `cultures_tables` 和 `cultures_subcultures_tables`；震旦亚文化实例是 `wh3_main_sc_cth_cathay`，用 `subculture()` 比较，不能填入 `culture()` 判断。
+
+效果必须同时核对 effect 的 bonus-value junction、scope、目标接口和持续时间。[效果链参考](effects_and_bundles.md)；具体失败优先读 [日志排查](debugging.md)。

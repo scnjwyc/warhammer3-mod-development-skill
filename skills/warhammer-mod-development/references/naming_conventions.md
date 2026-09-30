@@ -1,48 +1,9 @@
-# MOD命名规范
+# 命名与覆盖范围
 
-## 文件前缀规范
+新 key 和增量文件沿用目标 MOD 的前缀；`wyccc_`、`!wyccc_` 是原项目实例，不是所有 MOD 必须采用的前缀。
 
-所有文件必须使用 `wyccc_` 作为开发者前缀。
-
-### TSV文件叹号前缀（控制加载优先级）
-
-| 前缀 | 示例 | 用途 |
-|------|------|------|
-| `!!!wyccc_` | `!!!wyccc_cathay_school.tsv` | 最高优先级，核心主表 |
-| `!!wyccc_` | `!!wyccc_cathay_internal_alliance.tsv` | 中等优先级，关联表/辅助表 |
-| `wyccc_` | `wyccc_cth_court.tsv` | 默认优先级，普通数据表 |
-| `!wyccc_` | `!wyccc_cathay_school.tsv` | 较低优先级 |
-
-### Lua文件命名
-
-| 前缀 | 示例 | 用途 |
-|------|------|------|
-| `wyccc_` | `wyccc_cathay_internal_alliance.lua` | 普通功能脚本 |
-| `@wyc_` | `@wyc_ancillary_list.lua` | 数据列表/配置脚本 |
-
-### 禁止事项
-
-- **绝对禁止**使用 `data__` 作为MOD文件名——那是源码占位文件名
-- 文件名中的功能描述使用小写+下划线（snake_case）
-- 允许在文件名末尾添加中文注释，如 `_效果绑定主表.tsv`
-
-## 变量/键命名
-
-- MOD前缀：`wyccc_`（所有自定义key的前缀）
-- Effect key：`wyccc_<功能描述>`，如 `wyccc_hostile_towards_cathay`
-- Bundle key：`wyccc_<功能>_lv1`，如 `wyccc_nonorder_buff_lv1`
-- Module key：`wyccc_<功能名>`，如 `wyccc_cathay_nonorder_buffs`
-- 派系key引用：使用官方key如 `wh3_main_cth_cathay`、`wh2_main_skv_clan_eshin`
-
-## 目录名规范
-
-- DB表目录名与源码 `db/` 下的表名完全一致（区分大小写）
-- Lua目录固定为 `script/campaign/mod/`
-- 文本目录固定为 `text/db/`
-
-## 与其他MOD的一致性
-
-生成文件前，先检查其他MOD（如"天廷"、"难度大修"）中是否有同目录、同类型的文件，确保：
-1. 目录名与源码一致
-2. 叹号前缀用法一致
-3. TSV格式模式（表头行/无表头行）一致
+- 少量新增/覆盖行使用独立文件名，如 `!my_mod_effects.tsv`，内部路径同名且无扩展名。文件名前缀与 Pack 加载顺序一起决定实际覆盖，不能仅凭叹号数量断言整个 MOD 的优先级。
+- 只有明确要覆盖同一个原版 packed file 时才使用其精确内部路径，常见名为 `data__`，也可能是 DLC 独立文件名；先核对目标文件及完整数据。修改的行数多不意味着必须做全表替换。
+- Lua 模块、监听器名称、saved-value key 和 DB key 都应避开原版及依赖 MOD 已有名称。
+- 数字 ID 依据当前 schema 的整数范围和已用段分配，不能以固定高位前缀代替冲突检查。
+- 战役 Lua 常在 `script/campaign/mod/`，战斗脚本按当前加载链；DB 在 `db/<table>/`，LOC 在 `text/db/`。目录、大小写和资源引用跟随实际源文件。

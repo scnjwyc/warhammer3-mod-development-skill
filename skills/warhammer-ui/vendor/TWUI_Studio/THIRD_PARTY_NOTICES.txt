@@ -1,0 +1,10 @@
+TWUI Studio 0.22.2 — Third-party notices
+
+Bundled Python, Tcl/Tk, Pillow, and PyInstaller components retain their original licenses. See the licenses/ directory and license files included in _internal in a Windows build. The TWUI Studio Non-Commercial Source License does not replace or restrict rights granted by those third-party licenses.
+
+Original Total War: WARHAMMER III XML, images, trademarks, and other game assets belong to Creative Assembly and the respective rights holders, including SEGA and Games Workshop. No ownership or additional redistribution rights are granted by TWUI Studio. This is an unofficial, unaffiliated fan-made tool.
+
+The small files under examples/ are included only to demonstrate and test the editor. The complete game UI resource library, including separately extracted sprite_anims and units directories, is not included in the source repository or distribution. Users must extract required resources from their own game installation with RPFM or AssetEditor and comply with the applicable game and tool terms.
+
+Official game information and rights notices:
+https://store.steampowered.com/app/1142710/Total_War_WARHAMMER_III/

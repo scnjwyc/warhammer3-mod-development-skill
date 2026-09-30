@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-27T08:04:41.644455+00:00",
+  "ui_root": "sources/ui",
+  "studio_root": "../vendor/TWUI_Studio",
+  "studio_commit": "7e3e1be568fac3f5e9362d0494665fc549dc22eb",
+  "source_manifest_sha256": "25c0d98555f3735c0e6738790aba60f11eb21d61cc19431769485afbfb4ab9fc",
+  "metadata_sha256": "c3e9ae7697117e4682e418cd6f86dc3842b15b18add710fc3f827f6b921e09d5",
+  "files": 907,
+  "parsed_files": 907,
+  "parse_failures": [],
+  "entries": {
+    "callback": 47639,
+    "component": 44948,
+    "image": 26385,
+    "layout": 5562,
+    "property": 13674,
+    "state": 52520,
+    "template_state": 35671,
+    "text": 25138
+  },
+  "diagnostic_counts": {
+    "error:duplicate_name": 62,
+    "warning:name_mismatch": 364
+  },
+  "cco_types": 549,
+  "cco_symbols": 7348,
+  "boundary": "Local extraction snapshot; not proof of current game version or engine validity"
+}

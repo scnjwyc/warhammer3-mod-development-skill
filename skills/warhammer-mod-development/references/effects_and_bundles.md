@@ -140,4 +140,4 @@ cm:apply_effect_bundle(bundle, faction_key, 0)  -- 0 = 永久
 
 ## 相关参考
 - 常用 effect key 与 scope 速查：[common_effect_keys.md](common_effect_keys.md)
-- 本地化键名规范（`effect_bundles_localised_title_*`）：SKILL.md「本地化文本约定」章节
+- 本地化键名规范（`effect_bundles_localised_title_*`）：[本地化技能](../../warhammer-mod-translation/SKILL.md)

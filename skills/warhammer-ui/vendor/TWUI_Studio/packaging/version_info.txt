@@ -1,0 +1,14 @@
+VSVersionInfo(
+  ffi=FixedFileInfo(filevers=(0,22,2,0), prodvers=(0,22,2,0),
+    mask=0x3f, flags=0x0, OS=0x40004, fileType=0x1, subtype=0x0, date=(0,0)),
+  kids=[StringFileInfo([StringTable('040904B0', [
+    StringStruct('FileDescription', 'TWUI Studio'),
+    StringStruct('CompanyName', 'Backmechuisa & gpt-6 Astra'),
+    StringStruct('Comments', 'Co-created by Steam Workshop mod creator Backmechuisa & gpt-6 Astra. Non-commercial source license; see LICENSE.txt.'),
+    StringStruct('LegalTrademarks', 'Game trademarks belong to their respective owners.'),
+    StringStruct('FileVersion', '0.22.2'),
+    StringStruct('InternalName', 'TWUI_Studio'),
+    StringStruct('OriginalFilename', 'TWUI_Studio.exe'),
+    StringStruct('ProductName', 'TWUI Studio'),
+    StringStruct('ProductVersion', '0.22.2')])]),
+    VarFileInfo([VarStruct('Translation', [1033, 1200])])])

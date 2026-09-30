@@ -163,4 +163,4 @@ cm:force_add_ancillary_to_character(character, ancillary_key, ...)
 
 ## 相关参考
 - 效果与作用域：[effects_and_bundles.md](effects_and_bundles.md)
-- 本地化（装备名/描述）：SKILL.md「本地化文本约定」章节（装备 onscreen_name 用 `ancillaries_onscreen_name_<key>`）
+- 本地化（装备名/描述）：[本地化技能](../../warhammer-mod-translation/SKILL.md)（装备 onscreen_name 用 `ancillaries_onscreen_name_<key>`）

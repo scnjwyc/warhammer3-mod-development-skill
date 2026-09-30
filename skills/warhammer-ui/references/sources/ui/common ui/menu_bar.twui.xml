@@ -1,0 +1,1900 @@
+<?xml version="1.0"?>
+<layout
+	version="142"
+	comment=""
+	precache_condition="">
+	<hierarchy>
+		<root this="18966C8E-E129-43DA-8B0E4D2E2E555053">
+			<menu_bar this="7DDF8AD9-7CE9-46DE-BD9158FC6946C1E2">
+				<buttongroup this="CD21E92C-8A08-414D-B291001A7C5DE1F0">
+					<button_overlay_test this="F3DB553E-AD39-4971-AE424AD4D29BE10A"/>
+					<button_menu this="284C836B-052C-43AF-B3387DA2268F5103"/>
+					<button_hud_chat this="FCFE8D28-657F-4B07-9899E93A2019F9F1">
+						<chat_alert_icon this="B23ECABA-C073-409B-94CD008A69CC0615"/>
+					</button_hud_chat>
+					<button_show_advice this="9B6B9AD8-BEE1-4DDD-9E689CB8663D2925"/>
+					<button_help_panel this="613097F3-8756-4A5A-9ACF728DC19F9979"/>
+					<button_spell_browser this="0987A647-8510-4FA1-9808011C412195E1"/>
+					<button_twitch_settings this="E1350EEB-6594-4C70-89F1D5A94A3AA23D"/>
+					<button_settings this="14EA8725-BA34-43C0-97CACB4D50E96C68"/>
+					<button_telestration this="D3340C08-842E-4B09-A4DF7AA24916556F"/>
+					<button_ping this="9246CA8D-83D3-4332-BC0B02D85C5582BC"/>
+					<button_player_list this="DCA8906A-ECF7-44F5-A0EB370D20C5DDA8"/>
+					<button_search_panel this="5CB14028-8467-47E9-8DAC1DEA6770A0C8"/>
+				</buttongroup>
+			</menu_bar>
+		</root>
+	</hierarchy>
+	<components>
+		<buttongroup
+			this="CD21E92C-8A08-414D-B291001A7C5DE1F0"
+			id="buttongroup"
+			allowverticalresize="false"
+			priority="60"
+			tooltipslocalised="true"
+			uniqueguid="CD21E92C-8A08-414D-B291001A7C5DE1F0"
+			currentstate="0ECBCEDA-09DC-432E-844C18D0BCC153A1">
+			<userproperties>
+				<property
+					name="Tab Spacing"
+					value="0"/>
+			</userproperties>
+			<componentimages>
+				<component_image
+					this="4E7621B1-C46C-4525-BC84E708642DCF97"
+					uniqueguid="4E7621B1-C46C-4525-BC84E708642DCF97"
+					imagepath="ui/skins/default/bar_top_left.png"/>
+				<component_image
+					this="3BF9636D-9BA9-429F-A21B17F7C57ED098"
+					uniqueguid="3BF9636D-9BA9-429F-A21B17F7C57ED098"
+					imagepath="ui/skins/default/bar_top_left_corner.png"/>
+			</componentimages>
+			<states>
+				<newstate
+					this="0ECBCEDA-09DC-432E-844C18D0BCC153A1"
+					name="NewState"
+					width="284"
+					height="38"
+					uniqueguid="0ECBCEDA-09DC-432E-844C18D0BCC153A1">
+					<imagemetrics>
+						<image
+							this="79EBBABC-9BDF-418D-B6FFFC30FD29041C"
+							uniqueguid="79EBBABC-9BDF-418D-B6FFFC30FD29041C"
+							componentimage="4E7621B1-C46C-4525-BC84E708642DCF97"
+							width="284"
+							height="46"/>
+						<image
+							this="B9D7AB9C-77DD-4EC8-8C8D6DD99C257652"
+							uniqueguid="B9D7AB9C-77DD-4EC8-8C8D6DD99C257652"
+							componentimage="3BF9636D-9BA9-429F-A21B17F7C57ED098"
+							offset="258.00,0.00"
+							width="139"
+							height="52"
+							dockpoint="Center Right External"
+							dock_offset="-26.00,7.00"
+							canresizeheight="false"
+							canresizewidth="false"/>
+					</imagemetrics>
+					<component_text
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</newstate>
+			</states>
+			<LayoutEngine
+				type="HorizontalList"
+				sizetocontent="true"
+				secondary_margins="2.00,0.00"
+				margins="18.00,0.00"/>
+		</buttongroup>
+		<button_help_panel
+			this="613097F3-8756-4A5A-9ACF728DC19F9979"
+			id="button_help_panel"
+			template_id="round_small_button"
+			part_of_template="true"
+			uniqueguid_in_template="82F58892-7F49-4844-B36443AED497BEEF"
+			uniqueguid="613097F3-8756-4A5A-9ACF728DC19F9979"
+			dimensions="38.00,38.00"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="842E1252-C0ED-4E16-B21642E1F6D386AB"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="B5BBF995-6838-4962-920E5AD18440CD6A"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="37A17333-67C2-47AA-9D6EE615A4AD7736"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="67E03B0F-15CF-4C9B-93109C21B7277C8B"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="0C4B7A38-F541-4E37-9A37BC66955FB8D1"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_question_mark.png"
+					uniqueguid="438D265D-BCFA-4390-809009F93D233134"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="1495B557-AA9C-4C05-9C2F06FF1CE6AC9C"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="DD8E522B-C0D2-4489-BE39C53BA4FE3A48"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="7E4D5A41-2D2B-45EC-A78BB242CFAD88D6"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="6CE858E0-6F38-4E1F-AF5EA7CAFA2136B1"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="CBEAB11C-9CF4-4AC2-A3037E105BB537A5"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CampaignScriptLockCallback">
+					<child_m_user_properties>
+						<property
+							name="set_visibility"
+							value=""/>
+						<property
+							name="ui_override"
+							value="hide_help_button"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextInactiveStateSetter"
+					context_object_id="CcoScriptObject"
+					context_function_id="(ScriptObjectContext(&quot;disable_help_page_button&quot;).NumericValue == 0) &amp;&amp; IsPanelOpen(&quot;waiting_for_players&quot;) == false"/>
+				<callback_with_context callback_id="ContextInitScriptObject">
+					<child_m_user_properties>
+						<property
+							name="script_id"
+							value="disable_help_page_button"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="ComponentTooltip_535d12d2"
+					tooltip_text="{{tr:help_pages}}"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_question_mark.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value=""/>
+			</override_images>
+		</button_help_panel>
+		<button_hud_chat
+			this="FCFE8D28-657F-4B07-9899E93A2019F9F1"
+			id="button_hud_chat"
+			template_id="round_small_button"
+			part_of_template="true"
+			uniqueguid_in_template="82F58892-7F49-4844-B36443AED497BEEF"
+			uniqueguid="FCFE8D28-657F-4B07-9899E93A2019F9F1"
+			dimensions="38.00,38.00"
+			is_visible="false"
+			priority="100"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="6E2EF489-AD37-4D78-BD41EF3893291766"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="344B6BEC-97CE-44D7-B6C8BDFC89649993"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="AD85F984-D9C8-465C-9F824ED88C4E39E9"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="0CB3DFB1-B1F8-466A-8C0C253DD0D4EBAB"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="64E0082E-6C61-4178-914A8C52E6D7DBC5"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_chat.png"
+					uniqueguid="0FEDACE1-F189-4D3A-BCAE26753CC87D33"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="4380583D-7945-44BD-BE603821EE6AD6E4"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="FCF7F09D-BF1F-45FA-AF1B2E0126AF3EAB"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="FD0BC787-6268-4101-8AA8B1CC288280D4"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="D96E49E3-B6E0-4406-9AC97804ECB456E3"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="1EDA7F6D-0A2D-435A-B3D4C9CB7755DA44"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="MultiplayerChatToggleButton"/>
+				<callback_with_context callback_id="StatePropagatorCallback">
+					<child_m_user_properties>
+						<property
+							name="use_transitions"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_hud_chat_Tooltip_1c0022c"
+					tooltip_text="Chat"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_chat.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value=""/>
+			</override_images>
+		</button_hud_chat>
+		<button_menu
+			this="284C836B-052C-43AF-B3387DA2268F5103"
+			id="button_menu"
+			template_id="round_small_button"
+			part_of_template="true"
+			uniqueguid_in_template="82F58892-7F49-4844-B36443AED497BEEF"
+			uniqueguid="284C836B-052C-43AF-B3387DA2268F5103"
+			dimensions="38.00,38.00"
+			priority="52"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="DAC355AD-C248-4257-BA3CD62AD4515ECD"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="E7DD0CE7-6B62-473A-986742625F172501"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="22B03F36-B7E4-474A-8B4A7BCF7A836974"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="1937E409-380B-4745-B99CC3B27CBCAAE1"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="4C217747-397E-49D9-9C9A59E350CB52A6"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_menu.png"
+					uniqueguid="19D0100A-E609-407C-A3FB985A0DB4E197"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="3F0C700D-11DF-4DA0-B3D259A2A942FB47"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="F19E1138-512D-4A9C-828622384D5E6A28"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="4C2C8617-0D5F-4B83-BF3A46D41D391F47"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="A2C37552-8EE9-4115-B3886D473EDC0BD2"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="CFF4328C-1580-4B66-933723B2A3DDD454"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_menu_Tooltip_100023"
+					tooltip_text="Menu"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_menu.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value=""/>
+			</override_images>
+		</button_menu>
+		<button_overlay_test
+			this="F3DB553E-AD39-4971-AE424AD4D29BE10A"
+			id="button_overlay_test"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="F3DB553E-AD39-4971-AE424AD4D29BE10A"
+			dimensions="38.00,38.00"
+			is_visible="false"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="DFDE62F1-FD3B-4B63-B23C2905EA17CB28"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="E5E3119F-7912-4B42-825661D414511AAF"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="98E114CE-EE67-49D1-BEA28C2B39D67F9C"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="79964EF4-5A20-43B0-A1468563C867BB6B"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="24084EE0-8211-42A7-86E312E420800002"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="4473D397-67D0-4A3F-B220CCF357CC161C"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="7363D397-E2C5-4B69-9535755D96143A49"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="A3BBB050-A33C-48E2-99E2614E0B760555"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="6E59462C-546E-4796-B377B3F5DB604B48"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="5E2BDCB5-35BA-436B-B5E46D19BB872E24"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_camera_settings.png"
+					uniqueguid="EC4997BE-B5DB-47C2-A54990224B72E439"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="6F102F01-8641-415E-8F3E62B6ECF6A77B"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="F9323B68-27D7-46AC-BB54CBCF075A325C"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="4F2084EC-F4E3-478A-979283A597C6E4CA"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="8516F544-85E8-4319-8CDAB10EBE60D9FB"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="1B5F8A99-DDF7-4002-87194EF229807DDD"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="721911B0-0E0E-4D91-A09403BCABA27883"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="18B469F2-D4D1-46D4-ADBA5A3E90826627"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="BE240AC2-A8ED-44EB-BE9771D92A38649F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="2EBAAA6E-70D9-46F1-8593324C4F6E46FF"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="8922811D-584C-4A86-B40A820D30A330B1"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="#CampaignOverlayToggle"/>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_camera_settings.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_overlay_test>
+		<button_ping
+			this="9246CA8D-83D3-4332-BC0B02D85C5582BC"
+			id="button_ping"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="9246CA8D-83D3-4332-BC0B02D85C5582BC"
+			dimensions="38.00,38.00"
+			is_visible="false"
+			priority="60"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="8ADC91F6-5EDC-4818-BDB3305042FD285E"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="C31B8D2B-1F41-4E85-8338245AD67A4BD2"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="24D29D5A-D810-4456-969C5FC4A7B8C73F"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="66ED9707-D8B7-4109-B27C76B03302D263"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="7BCA6C65-26AA-468B-B0A59821B01FC892"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="2808A04F-B282-449A-8323434FF536A2D7"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="38DA2529-1681-481B-9DB6FFD5E995AC6F"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="23AC7FC8-80D0-4F6F-A0B6CF75AE3ABF74"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="3199B70F-1B3A-4288-A4C75C094F176389"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="60AB8B88-F5AA-4716-AC816CB9D1E6A005"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_ping_activate.png"
+					uniqueguid="22888532-E65D-4D36-935B8EBD5B3D513B"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="E3A7C96D-E4CB-4DBE-AD54F124F696EE0C"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="8965E03C-1431-4526-A41D7F544B5B8A34"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="6E272BA6-0837-4BBC-AC5A0C4C7F9F3A51"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="CAD039F2-17B3-4FBD-A7225FE5051890BD"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="40D4FC12-980A-4290-82C1F21B439F7863"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="3116650A-A8BA-4DDA-9A78F4E2D6A659DF"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="11BEC5F4-4264-4FBD-BB1924310F248C2F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="E00AEEB5-A8AB-4740-BF2F3663D9A8BFE7"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="875B2081-6FDE-41AD-BE17FED10BA6D4F6"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="546E856F-9E62-4F98-921DE052A87A68E8"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="StatePropagatorCallback">
+					<child_m_user_properties>
+						<property
+							name="target_id"
+							value="icon"/>
+						<property
+							name="use_transitions"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+				<callback_with_context callback_id="PingToggleButton"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="ComponentTooltip_c51e278b"
+					tooltip_text="Ping"/>
+				<localised_text
+					state="active"
+					text_label="StateText_9cae744a"
+					tooltip_label="StateTooltip_9cae744a"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					text_label="StateText_311ecd45"
+					tooltip_label="StateTooltip_311ecd45"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					text_label="StateText_1cce3b82"
+					tooltip_label="StateTooltip_1cce3b82"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					text_label="StateText_a136e4da"
+					tooltip_label="StateTooltip_a136e4da"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					text_label="StateText_ae259719"
+					tooltip_label="StateTooltip_ae259719"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					text_label="StateText_de747308"
+					tooltip_label="StateTooltip_de747308"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					text_label="StateText_88d621bf"
+					tooltip_label="StateTooltip_88d621bf"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					text_label="StateText_b661540b"
+					tooltip_label="StateTooltip_b661540b"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					text_label="StateText_467b67cf"
+					tooltip_label="StateTooltip_467b67cf"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					text_label="StateText_ad15f987"
+					tooltip_label="StateTooltip_ad15f987"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_ping_activate.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_ping>
+		<button_player_list
+			this="DCA8906A-ECF7-44F5-A0EB370D20C5DDA8"
+			id="button_player_list"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="DCA8906A-ECF7-44F5-A0EB370D20C5DDA8"
+			dimensions="38.00,38.00"
+			priority="60"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="1B716689-C2B3-4DC6-8E82489ACAB8D198"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="D202CC2F-3064-46D9-9F1448F3C2B93A53"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="02ECF7EC-7B74-4E10-BDB0EB9442853125"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="39B05CDA-588D-430F-9C8CB4CDCC9BFDBC"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="CC6BAFD1-E73D-496A-8B75FF19C4D12BC5"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="5C0B6E8B-E7C1-43C6-9099F4E17DD2CFAD"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="F6A15894-C26D-4DBE-B29B1F4ECBFF1322"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="7515BC3E-3B8F-4DC1-8E04E0DAB7EF6C46"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="37C32BA5-06A7-4E34-A83F597F85AA0BE4"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="0A44BBDB-DE87-4003-B25FB6BD4D8F42EE"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_player_list.png"
+					uniqueguid="FCC95CEF-9CBD-48CE-AAC132CAABD74BE2"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="6E1F74F1-0C54-4D68-B0F8CC335670F0E5"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="451002D1-0DEE-4A78-8A8C552D9C87AF38"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="BD3E3E0D-52ED-428C-9A6F4830FD7D87E3"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="906546DB-7189-48EC-AD639FC24A6E0F74"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="644D3DDA-BAE2-4D71-A0A451BDAFBC128D"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="9183B5FF-35C0-48D6-81F558C0A990B3F0"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="C4F33730-5F93-422D-B87C283566307477"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="7E491ACB-212F-4588-9A007B55DB28D4FB"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="826C5004-7025-4E48-B0FBDBAA9AADA5AF"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="49902882-2067-4A0C-90EA8E9F2275CBE4"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="IsMultiplayer || (BattleRoot.IsReplay &amp;&amp; (BattleRoot.AllianceList &gt; 2 || BattleRoot.SetupContext.BattleInfoContext.BattleTypeString == &quot;Domination&quot; ))"/>
+				<callback_with_context callback_id="ButtonToggleSetting">
+					<child_m_user_properties>
+						<property
+							name="disable_set_state"
+							value=""/>
+						<property
+							name="setting"
+							value="ui_show_mp_player_list"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="ContextStateSetterConditional">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="EnvironmentSettingChangedui_show_mp_player_list"/>
+						<property
+							name="event1"
+							value="PanelOpened"/>
+						<property
+							name="event2"
+							value="PanelClosed"/>
+						<property
+							name="fallback_state"
+							value="active"/>
+						<property
+							name="handle_button_states"
+							value=""/>
+						<property
+							name="inactive"
+							value="IsContextValid(CampaignRoot) &amp;&amp; IsFullscreenPanelOpen"/>
+						<property
+							name="selected"
+							value="PrefAsBool(&quot;ui_show_mp_player_list&quot;)"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_player_list_Tooltip_e8bf680e"
+					tooltip_text="Toggle player list"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					tooltip_label="button_player_list_inactive_Tooltip_31e955ab"
+					tooltip_text="Player list is unavailable while a full-screen panel is open"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_player_list.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_player_list>
+		<button_search_panel
+			this="5CB14028-8467-47E9-8DAC1DEA6770A0C8"
+			id="button_search_panel"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="5CB14028-8467-47E9-8DAC1DEA6770A0C8"
+			dimensions="38.00,38.00"
+			priority="60"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="2FFE0214-05B6-4220-89CE06B741059531"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="E1703812-36BB-48F7-90EB03800DDE7F43"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="797C0E35-3426-4F13-AEE791ED55881ECC"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="088E012A-33CE-4244-BB9E92CF7A5559BA"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="4682F964-DDCF-4563-86E1A70084BF2D2C"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="B25FA29D-087D-434D-AB46DC4A4D0CA8A9"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="0BA8425A-4484-42DA-B66C54756EE35BD1"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="2A245B86-7301-4E15-A874D13982851984"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="808BED7B-222C-46A6-8E61F52290FF2BFF"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="E42995F1-AC0F-4EAF-BB5E4C4D91F6E6AC"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_details.png"
+					uniqueguid="03B2682C-2B33-4E90-A856E945A688BF85"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="D8BAF318-B742-45F3-8FB4A5DD8A35D535"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="402555A9-5537-41DC-BD918E56D62DBCE2"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="A4710AF7-3081-4286-834B5CA8826F981F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="01A0B193-3393-40EF-8FAAFA5881218A16"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="274D360F-778F-45DC-B2E1F886627E6C38"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="F5FCD67B-D39E-4AAA-971FAA936E9D4AEF"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="41F8950F-323B-4500-9561D787BA3620EC"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="62345433-5D6C-45E6-AD7BBADCC3901107"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="0814895E-BCA2-4EC5-B9F86F1DBC7C4F7F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="26066D2D-EB86-4B13-8E7123E67AAEE113"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+				<callback_with_context
+					callback_id="ContextCommandLeftClick"
+					context_object_id="CcoStaticObject"
+					context_function_id="Component(&quot;8D54AC72-A4CE-45C7-848D21B0DC174D87&quot;).ToggleVisibility"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="CampaignRoot"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="ComponentTooltip_3ff2301d"
+					tooltip_text="Campaign Search"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_details.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_search_panel>
+		<button_settings
+			this="14EA8725-BA34-43C0-97CACB4D50E96C68"
+			id="button_settings"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="14EA8725-BA34-43C0-97CACB4D50E96C68"
+			dimensions="38.00,38.00"
+			is_visible="false"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="C21A3D13-B9D8-455A-89B9D307E045DA63"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="B9D36688-5442-4371-B614DB350B1766C3"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="7D0AD945-913B-4900-8C17BAB678CC2EFC"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="C7EA471F-9797-4555-9AB49ACAC9A24BDA"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="F02631AE-64B1-4C26-90DB39FF3DD6056D"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="634C35BA-C200-4289-94FB9F943A146144"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="DFFD062C-71DB-4A71-B240E364E5A1D02F"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="9347BFF8-E37D-41B4-99303714BDB743AB"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="F29B4365-5B25-4C26-895E6F9ED05F90B3"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="F6459F03-4160-4044-95904DECAA66F7EE"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_camera_settings.png"
+					uniqueguid="4504985D-013E-45DC-8204D94E2115870C"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="23A77457-721B-47A1-A7D4F5C9D7BBB748"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="E0BD9FA3-BB95-4733-B5A6C2B7E5326F26"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="2F2E8540-96E0-4B3C-8447DA9FF009A091"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="F2F9CD1F-1180-4B8A-AB9887D1EF519DDD"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="AB88A6E1-6F0F-43AA-A41DDE1C7085D540"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="4790B5EE-6487-4E6E-83413B13555E602D"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="0A24378E-EC90-45B0-8A8F25841C33A205"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="63F74DB3-CAC7-495D-A917C23C832CA7B2"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="F1B19D5A-7724-482A-99F405351FE89E8F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="630C5B76-076C-4B86-ACF40E4C05296190"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="StatePropagatorCallback">
+					<child_m_user_properties>
+						<property
+							name="target_id"
+							value="icon"/>
+						<property
+							name="use_transitions"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_pause_Tooltip_4c0070"
+					tooltip_text="Camera Settings"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_camera_settings.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_settings>
+		<button_show_advice
+			this="9B6B9AD8-BEE1-4DDD-9E689CB8663D2925"
+			id="button_show_advice"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="9B6B9AD8-BEE1-4DDD-9E689CB8663D2925"
+			dimensions="38.00,38.00"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="FF0350FE-096F-4318-B683C83A7F06059A"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="94E473F8-7874-4109-A7A5DE62C4DF2235"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="C17FF2A2-27B0-4B72-8ADCC50852C25A46"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="2DC3937A-43B9-4662-82950492403B41F5"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="00691438-8BA9-44D7-8409434760609AB7"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="89553269-ADBE-40E5-AA962070DB8E6975"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="B4F03E20-565D-448F-86BEA7DB60A5B2D9"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="1A0ED610-0288-4EBA-B3040AF472C4D7B4"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="573444C4-4DC5-4FDC-AEA4A02639196C05"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="B8A3D9D4-BEA1-48DE-81A9F1A55AAD57BE"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_advisor.png"
+					uniqueguid="9DF4456B-513D-4F12-ABED0138DC557877"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="EE3AF3DD-A17B-495B-8D312D327EB4039E"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="452D5A85-FE9A-4826-A51EC631F6EBEF93"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="F50AD511-8C82-4428-A8C5E2622990D294"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="46A12E1C-6202-4A4F-BDBEFE76EAF3D68D"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="23F8E371-1FD4-464D-B5D0E642557880CA"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="2A62254E-9160-4963-94061163F0747109"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="17B682EC-30ED-4410-A4271BDF074D0A27"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="49D10785-2DA6-441C-AE0F08B80BD67CF8"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="20B943C5-11E8-4DD4-8092F93839E7F9A1"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="9232B270-3A6D-43A6-8571EA494CE68B97"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CampaignScriptLockCallback">
+					<child_m_user_properties>
+						<property
+							name="set_visibility"
+							value=""/>
+						<property
+							name="ui_override"
+							value="hide_advice_button"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_show_advice_Tooltip_620036"
+					tooltip_text="Advisor"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_advisor.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_show_advice>
+		<button_spell_browser
+			this="0987A647-8510-4FA1-9808011C412195E1"
+			id="button_spell_browser"
+			template_id="round_small_button"
+			part_of_template="true"
+			uniqueguid_in_template="82F58892-7F49-4844-B36443AED497BEEF"
+			uniqueguid="0987A647-8510-4FA1-9808011C412195E1"
+			dimensions="38.00,38.00"
+			sound_category="UI_GBL_HUD_Spell_Browser">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="46E216EA-DC84-4E8C-90D453C457AC703D"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="9913D4BD-96D4-452F-9DD9E4B36029EFEE"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="86D457BD-6EED-4901-9AD482E771404E42"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="4ECD34FB-58DC-4204-91D0FC408D9EAA3F"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="22BB0330-263D-48B1-85EE52745C1E70F1"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_spell_browser.png"
+					uniqueguid="283B926F-A400-4C16-A23B2451E4E9DDBF"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="CEC05124-D2B4-4B1F-8FB030FADB903137"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="D1A68697-7F91-46F1-8EC4CCC195CD2E06"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="1205AC85-5A9D-486A-A7D694DEB86A3026"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="34689DDF-9430-4848-B8CBB96E85807AE0"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="4E707B10-0DB4-4304-BB6E17A15456055A"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CampaignScriptLockCallback">
+					<child_m_user_properties>
+						<property
+							name="set_visibility"
+							value=""/>
+						<property
+							name="ui_override"
+							value="hide_spell_browser_button"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+				<property
+					name="override_sound"
+					value=""/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_spell_browser_Tooltip_845fbae3"
+					tooltip_text="Unit &amp; Spell Browser"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_spell_browser.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value=""/>
+			</override_images>
+		</button_spell_browser>
+		<button_telestration
+			this="D3340C08-842E-4B09-A4DF7AA24916556F"
+			id="button_telestration"
+			template_id="round_small_button_toggle"
+			part_of_template="true"
+			uniqueguid_in_template="5E5903D5-3190-4BE4-A117AA3392596D5C"
+			uniqueguid="D3340C08-842E-4B09-A4DF7AA24916556F"
+			dimensions="38.00,38.00"
+			is_visible="false"
+			priority="60"
+			sound_category="UI_GBL_TMP_Round_Small_Button">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="9662476D-8014-4176-A4126B919AE4B3AD"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="B441F806-1A3F-465A-83991C2AB189627C"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="6ECF56C8-E6E3-4494-A757F0E82F7F806A"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="477230F1-8B3C-4C19-80D822A456B00BF2"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="4C805B51-D610-45A8-99A1FB4A9B4D809B"/>
+				<state_uniqueguid
+					name="selected"
+					uniqueguid="486EF158-48D9-43AB-963838C0F80D5FEC"/>
+				<state_uniqueguid
+					name="selected_down"
+					uniqueguid="07825579-5E27-442A-884840A599235586"/>
+				<state_uniqueguid
+					name="selected_down_off"
+					uniqueguid="03D1A965-DCA9-4580-97965C117E72069C"/>
+				<state_uniqueguid
+					name="selected_hover"
+					uniqueguid="494DDDEC-E2BA-49E2-B26149A417C8B723"/>
+				<state_uniqueguid
+					name="selected_inactive"
+					uniqueguid="4EED119F-99BE-4D4A-9BD6E5A82316B91D"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/icon_telestration.png"
+					uniqueguid="D7CD111E-18A5-475F-9D26DC92693833C0"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="EAED8314-E1A2-4D5C-BBC09FC852F5316C"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_hover.png"
+					uniqueguid="9F3F43CC-5C0C-45A4-A22B73A056FFFA32"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="1DA2C877-1B42-4EE8-BF31A0E199A43488"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="7A9506CD-1EE5-47F7-ABBF339080563E6F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="F42D1CDE-470B-4087-90CD220C74068CFE"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected.png"
+					uniqueguid="2258AF12-9E6F-440A-820F476F38CBF5D6"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="BD0B9338-7422-4377-8E9597E7A3F46319"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_underlay.png"
+					uniqueguid="9D1CFD48-3A79-450D-B7A6FD2D1310E235"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_inactive.png"
+					uniqueguid="F0724C45-B735-4071-8349053291478781"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_selected_pressed.png"
+					uniqueguid="F6792538-4F94-40CB-9A5D3CABC1907DE7"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="StatePropagatorCallback">
+					<child_m_user_properties>
+						<property
+							name="target_id"
+							value="icon"/>
+						<property
+							name="use_transitions"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+				<callback_with_context
+					callback_id="ContextInactiveStateSetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="IsPanelOpen(&quot;waiting_for_players&quot;) == false"/>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="button_telestration_Tooltip_5deae856"
+					tooltip_text="Telestration"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="selected_inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/icon_telestration.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_selected_hover.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_underlay.png"/>
+				<element value="ui/skins/default/button_round_small_selected_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_selected_pressed.png"/>
+				<element value=""/>
+			</override_images>
+		</button_telestration>
+		<button_twitch_settings
+			this="E1350EEB-6594-4C70-89F1D5A94A3AA23D"
+			id="button_twitch_settings"
+			template_id="round_small_button"
+			part_of_template="true"
+			uniqueguid_in_template="82F58892-7F49-4844-B36443AED497BEEF"
+			uniqueguid="E1350EEB-6594-4C70-89F1D5A94A3AA23D"
+			dimensions="38.00,38.00"
+			tooltips_localised="false"
+			priority="60"
+			sound_category="UI_GBL_HUD_Spell_Browser">
+			<state_uniqueguids>
+				<state_uniqueguid
+					name="active"
+					uniqueguid="59DF1AFE-C3EC-4EBD-A00BE4082C6ED10A"/>
+				<state_uniqueguid
+					name="down"
+					uniqueguid="E0B7F50E-2854-4EA7-88B2B319C3999254"/>
+				<state_uniqueguid
+					name="down_off"
+					uniqueguid="769A5357-8FC7-403E-BECCE7A11C94F960"/>
+				<state_uniqueguid
+					name="hover"
+					uniqueguid="703B69B2-F2CF-424C-A5B36CD115AE8222"/>
+				<state_uniqueguid
+					name="inactive"
+					uniqueguid="8C28D0A2-C1D7-4158-83644E30DF48865F"/>
+			</state_uniqueguids>
+			<component_image_uniqueguids>
+				<component_image_uniqueguid
+					name="ui/skins/default/twitch_integration/icon_twitch_logo.png"
+					uniqueguid="22CF7CB3-C673-4E9E-A6EE464C4FE9759F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_pressed.png"
+					uniqueguid="DC9E9739-4C33-4781-B28B5ABD998ADE7E"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_hover.png"
+					uniqueguid="63AEEE9A-24DA-45D4-800BEAE3B32E224F"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_active.png"
+					uniqueguid="A6366F22-F62E-474B-B1F9AB3B1C39AE10"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_inactive.png"
+					uniqueguid="74505EAF-34BD-4786-A049D3EE4CAD6C80"/>
+				<component_image_uniqueguid
+					name="ui/skins/default/button_round_small_underlay.png"
+					uniqueguid="7332A73F-4972-4591-A69D7B7ECBE0589E"/>
+			</component_image_uniqueguids>
+			<callbacks_with_context>
+				<callback_with_context callback_id="Button"/>
+				<callback_with_context callback_id="CallbackAnimTrigger"/>
+				<callback_with_context
+					callback_id="ContextCommandLeftClick"
+					context_object_id="CcoStaticObject"
+					context_function_id="Component(&quot;twitch_settings_panel_holder&quot;).ToggleVisibility"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoGameCore"
+					context_function_id="IsContextValid(ServiceManagerContext) &amp;&amp; ServiceManagerContext.IsLive">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="AuthServiceTokenChange"/>
+						<property
+							name="event1"
+							value="StatusServiceConnectionInfoUpdate"/>
+						<property
+							name="event2"
+							value="StatusServiceConnectionStatusChange"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextInactiveStateSetter"
+					context_object_id="CcoGameCore"
+					context_function_id="IsContextValid(ServiceManagerContext) &amp;&amp; ServiceManagerContext.IsAllIdle &amp;&amp; IsPanelOpen(&quot;popup_pre_battle&quot;) == false &amp;&amp; IsPanelOpen(&quot;popup_battle_results&quot;) == false &amp;&amp; IsPanelOpen(&quot;settlement_captured&quot;) == false">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="VotingServicePollStart"/>
+						<property
+							name="event1"
+							value="VotingServicePollEnd"/>
+						<property
+							name="event2"
+							value="VotingServicePollDataClear"/>
+						<property
+							name="event3"
+							value="RaffleServiceRaffleStart"/>
+						<property
+							name="event4"
+							value="RaffleServiceRaffleEnd"/>
+						<property
+							name="event5"
+							value="RaffleServiceRaffleDataClear"/>
+						<property
+							name="event6"
+							value="AuthServiceTokenChange"/>
+						<property
+							name="event7"
+							value="StatusServiceConnectionStatusChange"/>
+						<property
+							name="event8"
+							value="PanelOpened"/>
+						<property
+							name="event9"
+							value="PanelClosed"/>
+					</child_m_user_properties>
+				</callback_with_context>
+			</callbacks_with_context>
+			<user_properties>
+				<property
+					name="disable_override"
+					value="resizable"/>
+				<property
+					name="disable_override0"
+					value="CallbackAnimTrigger"/>
+				<property
+					name="dynamic_image"
+					value="0"/>
+				<property
+					name="override_sound"
+					value=""/>
+			</user_properties>
+			<localised_texts>
+				<localised_text
+					tooltip_label="ComponentTooltip_417eda0a"
+					tooltip_text="{{tr:uied_component_texts_localised_string_wh3_cp1_twitch_integration_settings}}"/>
+				<localised_text
+					state="active"
+					is_text_localised="false"/>
+				<localised_text
+					state="down"
+					is_text_localised="false"/>
+				<localised_text
+					state="down_off"
+					is_text_localised="false"/>
+				<localised_text
+					state="hover"
+					is_text_localised="false"/>
+				<localised_text
+					state="inactive"
+					is_text_localised="false"/>
+			</localised_texts>
+			<override_images>
+				<element value="ui/skins/default/twitch_integration/icon_twitch_logo.png"/>
+				<element value="ui/skins/default/button_round_small_pressed.png"/>
+				<element value="ui/skins/default/button_round_small_hover.png"/>
+				<element value="ui/skins/default/button_round_small_active.png"/>
+				<element value="ui/skins/default/button_round_small_inactive.png"/>
+				<element value="ui/skins/default/button_round_small_underlay.png"/>
+				<element value=""/>
+			</override_images>
+		</button_twitch_settings>
+		<chat_alert_icon
+			this="B23ECABA-C073-409B-94CD008A69CC0615"
+			id="chat_alert_icon"
+			offset="24.00,24.00"
+			allowhorizontalresize="false"
+			allowverticalresize="false"
+			docking="Center Right"
+			dock_offset="2.00,13.00"
+			component_anchor_point="1.00,0.50"
+			priority="100"
+			tooltipslocalised="true"
+			uniqueguid="B23ECABA-C073-409B-94CD008A69CC0615"
+			updatewhennotvisible="true"
+			currentstate="147A9085-03E3-4C6B-B5FC561FF9324213"
+			defaultstate="147A9085-03E3-4C6B-B5FC561FF9324213">
+			<userproperties>
+				<property
+					name="dynamic_child"
+					value=""/>
+				<property
+					name="dynamic_child_parent"
+					value="button_hud_chat"/>
+			</userproperties>
+			<componentimages>
+				<component_image
+					this="45AE6DBC-4A14-4521-A476F35C11938DAF"
+					uniqueguid="45AE6DBC-4A14-4521-A476F35C11938DAF"
+					imagepath="ui/skins/default/icon_alert_message.png"/>
+			</componentimages>
+			<states>
+				<newstate
+					this="147A9085-03E3-4C6B-B5FC561FF9324213"
+					name="NewState"
+					width="16"
+					height="16"
+					shader_name="glow_pulse_t0"
+					uniqueguid="147A9085-03E3-4C6B-B5FC561FF9324213">
+					<imagemetrics>
+						<image
+							this="6DCA278D-6E1E-4474-AF96A7D550E586D5"
+							uniqueguid="6DCA278D-6E1E-4474-AF96A7D550E586D5"
+							componentimage="45AE6DBC-4A14-4521-A476F35C11938DAF"
+							width="16"
+							height="16"/>
+					</imagemetrics>
+				</newstate>
+			</states>
+		</chat_alert_icon>
+		<menu_bar
+			this="7DDF8AD9-7CE9-46DE-BD9158FC6946C1E2"
+			id="menu_bar"
+			allowhorizontalresize="false"
+			allowverticalresize="false"
+			docking="Top Left"
+			priority="20"
+			tooltipslocalised="true"
+			uniqueguid="7DDF8AD9-7CE9-46DE-BD9158FC6946C1E2"
+			updatewhennotvisible="true"
+			currentstate="5D3CDED8-7F64-4516-96BC78F780623C4C"
+			defaultstate="5D3CDED8-7F64-4516-96BC78F780623C4C">
+			<callbackwithcontextlist>
+				<callback_with_context callback_id="MenuBar"/>
+				<callback_with_context callback_id="ContextInitGameCore"/>
+			</callbackwithcontextlist>
+			<states>
+				<newstate
+					this="5D3CDED8-7F64-4516-96BC78F780623C4C"
+					name="NewState"
+					width="230"
+					height="45"
+					interactive="true"
+					uniqueguid="5D3CDED8-7F64-4516-96BC78F780623C4C"/>
+			</states>
+			<animations>
+				<show id="show">
+					<frames>
+						<frame
+							interpolationtime="0"
+							interpolationpropertymask="2"
+							targetmetrics_m_height="60"
+							targetmetrics_m_width="362"/>
+						<frame
+							interpolationtime="300"
+							interpolationpropertymask="2"
+							targetmetrics_m_height="60"
+							targetmetrics_m_width="362"
+							targetmetrics_m_offset="362.00,60.00"
+							easing_curve_type="Circular Out"/>
+					</frames>
+				</show>
+				<hide id="hide">
+					<frames>
+						<frame
+							interpolationtime="300"
+							interpolationpropertymask="2"
+							targetmetrics_m_height="60"
+							targetmetrics_m_width="362"
+							targetmetrics_m_offset="-362.00,-60.00"
+							easing_curve_type="Circular In"/>
+					</frames>
+				</hide>
+			</animations>
+		</menu_bar>
+		<root
+			this="18966C8E-E129-43DA-8B0E4D2E2E555053"
+			id="root"
+			tooltipslocalised="true"
+			uniqueguid="18966C8E-E129-43DA-8B0E4D2E2E555053"
+			currentstate="15BC591B-A5DE-4860-A6EB13A96ABA3334"
+			defaultstate="15BC591B-A5DE-4860-A6EB13A96ABA3334">
+			<componentimages>
+				<component_image
+					this="E58F1444-4CFF-4CFE-BD67B0F047A3A8AF"
+					uniqueguid="E58F1444-4CFF-4CFE-BD67B0F047A3A8AF"/>
+			</componentimages>
+			<states>
+				<newstate
+					this="15BC591B-A5DE-4860-A6EB13A96ABA3334"
+					name="NewState"
+					width="1600"
+					height="900"
+					interactive="true"
+					uniqueguid="15BC591B-A5DE-4860-A6EB13A96ABA3334">
+					<imagemetrics>
+						<image
+							this="ABBBEB80-9C16-45B3-BA9912CF6F3D9724"
+							uniqueguid="ABBBEB80-9C16-45B3-BA9912CF6F3D9724"
+							componentimage="E58F1444-4CFF-4CFE-BD67B0F047A3A8AF"
+							width="1600"
+							height="960"
+							colour="#C0C0C0FF"/>
+					</imagemetrics>
+					<component_text
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</newstate>
+			</states>
+		</root>
+	</components>
+</layout>
