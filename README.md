@@ -13,7 +13,6 @@
 | [warhammer-character-textures](skills/warhammer-character-textures/SKILL.md) | DDS 格式、原图恢复、Alpha/Mip 与批次验证 |
 | [warhammer-mod-rmv2-skeleton-repair](skills/warhammer-mod-rmv2-skeleton-repair/SKILL.md) | 模型骨架、权重、bind-pose、字节与动作验收 |
 | [warhammer-ui](skills/warhammer-ui/SKILL.md) | TWUI XML、布局、CCO、运行时与离线查询 |
-| [warhammer-wwd-lite-patch](skills/warhammer-wwd-lite-patch/SKILL.md) | 与龙同行本体更新后的精简补丁同步 |
 
 ## 安装
 
