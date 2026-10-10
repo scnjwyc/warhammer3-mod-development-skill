@@ -1,26 +1,22 @@
-# RPFM TSV 格式与增量修改
+# RPFM TSV 文件格式
 
-DB TSV 的第一行是 Tab 分隔列名，第二行是 `#<table>;<version>;db/<table>/<packed_name>`，第三行起为数据。格式、字段顺序和版本以当前 RPFM 导出与 schema 为准，不使用无表头“模式 B”。
+以当前游戏导出和当前 RPFM schema 为准。普通 DB TSV 使用列名行、元数据行、完整数据行；不要因旧 MOD 中有无表头文件，就把无表头当成另一种导入模式。
 
-```text
-effect_bundle_key<TAB>effect_key<TAB>effect_scope<TAB>value<TAB>advancement_stage
-#effect_bundles_to_effects_junctions_tables;3;db/effect_bundles_to_effects_junctions_tables/!my_bundle
-my_bundle<TAB>wh_main_effect_force_all_campaign_upkeep<TAB>faction_to_force_own_unseen<TAB>-30.0000<TAB>start_turn_completed
+```tsv
+effect_bundle_key	effect_key	effect_scope	value	advancement_stage
+#effect_bundles_to_effects_junctions_tables;3;db/effect_bundles_to_effects_junctions_tables/!wyccc_example
+wyccc_example	wh_main_effect_force_all_campaign_upkeep	faction_to_force_own_unseen	-30.0000	start_turn_completed
 ```
 
-示例的 `<TAB>` 表示真实制表符；版本 3 仅是示例。内部路径不带 `.tsv`，末段等于源文件去掉 `.tsv` 的名称。复制原版 `data__.tsv` 为增量文件后必须同步修改元数据路径。
+上例只说明结构；版本、scope、阶段及 effect 必须再对照当前同类原版记录。Loc TSV 使用其自身导出格式，交给 `warhammer-mod-translation`。
 
-## 整行数据完整性
+## 写入与检查
 
-补丁中参与覆盖的记录必须包含该行全部字段，空值不会自动继承被覆盖行。读取同 key 的完整基准行，只改目标字段，非目标列逐项保持一致。`!` 是文件命名/排序约定，不是 RPFM 的字段合并操作。
+1. 从当前同表导出复制**全部列名及其顺序**、元数据中的表名和版本。旧版本或缺列先重新导出，不通过补空列猜测迁移。
+2. 元数据为 `#<表名>;<版本>;<Pack 内路径>`，例如 `db/effects_tables/!wyccc_example`，路径不带 `.tsv`。修改文件名时同步修改路径；元数据行允许导出器补齐空 Tab。
+3. 使用 UTF-8、无 BOM 和实际 Tab。数据行列数必须等于表头；中间和末尾的合法空字段保留，不能 `strip()` 后丢失末列。禁止的是额外列，不是所有尾部 Tab。
+4. 数值类型、可空性、主键和引用目标查当前 schema。整数按实际 `I32` / `I64` 范围检查；浮点格式可沿用模板。不要假定所有数字 ID 都是 `I32` 或某段 ID 天然未占用。
+5. 覆盖已有 key 时复制完整行，再修改明确字段；空值会成为实际数据，不会保留原值。复合主键必须完整定位。
+6. 用 [精确行比较](ability-targeting.md#精确比较) 核对非目标字段，再按 [源 Pack 工作流](pack-workflow.md) 导入、保存和读回。DB / Loc 用 `import_tsv`，禁止把 TSV 当裸文件塞进 Pack。
 
-每条数据行的列数等于表头。末尾字段为空时保留必要尾部 Tab，不用 `strip()` 删掉它们。空字段用连续 Tab 表示。UTF-8 编码及 BOM 按当前工具导出保留，读取时兼容 BOM；不能靠统一增删 BOM 修复数据链问题。
-
-## 字段与引用
-
-- 数值 ID 先查 schema 类型；I32 范围为 -2147483648 至 2147483647，I64 为 -9223372036854775808 至 9223372036854775807。不能使用超过字段范围的 ID，不能把某个“大数区间”视为永远无冲突。
-- 检查所有改动表和已加载依赖中的主键/组合主键。对浮点值保留合理精度，对 bool 使用导出格式。
-- 用当前引用表验证键，而非从相似名称推导。不能向 `unit_attributes_tables` 添加自定义引擎属性；自有属性组组合原版合法属性即可。
-- 表结构检查、引用检查与游戏机制是三个层次。导入成功后读回实际行数及关键列，确认无漏行、空表和意外清空字段。
-
-文件命名见 [命名约定](naming_conventions.md)。LOC 转义和校验见 [本地化技能](../../warhammer-mod-translation/SKILL.md)。导入与诊断见 [Pack 工作流](pack-workflow.md)。
+`!` 是项目命名和加载排序约定，不是 TSV 格式开关。`data__` 与增量文件的行为见 [命名规范](naming_conventions.md)。游戏更新后的版本和内容漂移见 [版本维护](version-maintenance.md)。

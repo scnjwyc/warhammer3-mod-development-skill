@@ -74,7 +74,7 @@ pooled_resources          资源定义（如"军功徽记"）
 ### `resource_cost_pooled_resource_junctions_tables` — 资源消耗 ↔ 池资源因子
 | 列 | 说明 |
 |----|------|
-| `pooled_resource_factor` | → `pooled_resource_factors_tables.key` |
+| `pooled_resource_factor` | → `pooled_resource_factor_junctions_tables.unique_id`（不是 factors 主表 key；同名值容易掩盖引用错误） |
 | `resource_cost` | → `resource_costs_tables.id` |
 | `amount` | 数量 |
 | `context` | 上下文 |

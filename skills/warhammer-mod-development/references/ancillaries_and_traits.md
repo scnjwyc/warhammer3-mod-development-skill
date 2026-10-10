@@ -38,7 +38,7 @@
 | `effect_scope` | 作用域（见 effects_and_bundles.md） |
 | `value` | 数值 |
 
-**用途**：定义装备穿戴后提供的加成。装备自带效果不走 effect_bundle，直接走此表。
+**用途**：普通装备的穿戴加成可直接走此表；旗帜分配给单位的效果另查 `provided_banner` → `banners` → bundle 专用链，见 [旗帜配方](db-scenarios.md#旗帜赋予单位效果)。
 
 ---
 
@@ -154,7 +154,7 @@ cm:add_ancillary_to_faction(faction, ancillary_key, suppress_event)
 -- 返回：成功与否
 
 -- 把装备直接给特定角色
-cm:force_add_ancillary_to_character(character, ancillary_key, ...)
+cm:force_add_ancillary(character, ancillary_key, force_equip, suppress_event_feed)
 ```
 
 ⚠️ **常见坑**：装备 key 必须在 `ancillaries_tables` 中已注册，否则 `cm:add_ancillary_to_faction` 会静默失败（无报错但装备不进包）。复制原版装备做副本时务必新建 key 并完整注册主表。
@@ -162,5 +162,6 @@ cm:force_add_ancillary_to_character(character, ancillary_key, ...)
 ---
 
 ## 相关参考
+- 旗帜分配与单位能力：[场景化配方](db-scenarios.md#旗帜赋予单位效果)
 - 效果与作用域：[effects_and_bundles.md](effects_and_bundles.md)
 - 本地化（装备名/描述）：[本地化技能](../../warhammer-mod-translation/SKILL.md)（装备 onscreen_name 用 `ancillaries_onscreen_name_<key>`）

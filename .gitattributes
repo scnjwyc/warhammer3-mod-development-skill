@@ -1,0 +1,5 @@
+# Preserve reproducible bytes for the manifest and the bundled UI source index.
+* text=auto eol=lf
+*.sqlite binary
+*.png binary
+*.odt binary

@@ -56,7 +56,7 @@ main_units_tables          招募层（成本、容量、人口、UI分组）
 | `shield` | 护盾类型 → `unit_shield_types_tables.key` |
 | `armour` | 护甲值（数字） |
 | `unit_armour_type`（隐含） | 护甲类型 → `unit_armour_types_tables` |
-| `man_entity` / `mount_entity` | 战斗实体 → `battle_entities_tables.key` |
+| `man_entity` / `mount` | 徒步实体 → `battle_entities_tables.key`；坐骑 key → `mounts_tables` → `entity` |
 | `melee_attack` / `melee_defence` / `charge_bonus` | 近战攻防/冲锋 |
 | `accuracy` / `reload` | 远程命中/装填 |
 | `morale` | 士气 |
@@ -169,6 +169,8 @@ main_units_tables          招募层（成本、容量、人口、UI分组）
 ### `battle_entities_tables` — 战斗实体（血量/质量/半径等）
 单位在战场的基础物理属性。
 
+外观 scale 与实体半径、质量、碰撞参数分开检查；修改共享 entity 前反查使用者，见 [外观与战斗判定](model-and-collision.md)。
+
 ### `battle_entity_stats_tables` — 战斗实体统计
 实体衍生统计。
 
@@ -257,6 +259,8 @@ main_units_tables          招募层（成本、容量、人口、UI分组）
 ## 单位变体与外观
 
 ### `unit_variants_tables` — 单位变体（阵营配色）
+
+模型缩放、完整 LOD/材质引用及战斗实体分别按 [外观与战斗判定](model-and-collision.md) 检查。
 | 列 | 说明 |
 |----|------|
 | `faction` / `unit` / `name` | 派系/单位/变体名 |
@@ -348,6 +352,8 @@ main_units_tables          招募层（成本、容量、人口、UI分组）
 
 ### `unit_banner_unit_height_offsets_tables` — 旗帜高度偏移
 ### `unit_allowances_tables` — 单位容量许可
+
+基础容量、动态加成、佣兵池库存与立即发兵分别检查，见 [真实单位容量配方](db-scenarios.md#真实单位容量)。
 
 ---
 

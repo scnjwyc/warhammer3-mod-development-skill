@@ -1,0 +1,4 @@
+# Optional: native disassembly and offline Lua 5.1 contract regressions.
+# TSV/MCP file helpers and UI CLI need only Python's standard library.
+capstone==5.0.7
+lupa==2.8

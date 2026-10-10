@@ -264,6 +264,7 @@ faction_to_mercenary_set_junctions    派系 → 佣兵集
 ---
 
 ## 相关参考
+- 真实容量、两难购买和立即发兵：[场景化 DB 配方](db-scenarios.md)
 - 池资源（`campaign_group_pooled_resources`）：[pooled_resources.md](pooled_resources.md)
 - 仪式（`campaign_group_rituals`）：[rituals.md](rituals.md)
 - 事务官（`unique_agents`）：[characters_skills_agents.md](characters_skills_agents.md)

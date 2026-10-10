@@ -39,3 +39,5 @@ end)
 文化与亚文化是不同键域，分别查 `cultures_tables` 和 `cultures_subcultures_tables`；震旦亚文化实例是 `wh3_main_sc_cth_cathay`，用 `subculture()` 比较，不能填入 `culture()` 判断。
 
 效果必须同时核对 effect 的 bonus-value junction、scope、目标接口和持续时间。[效果链参考](effects_and_bundles.md)；具体失败优先读 [日志排查](debugging.md)。
+
+字符串搜索先核对 [CA 字符串契约](ca-string-api.md)，不能把标准 Lua 的四参数或模式行为直接用于 CA 的 `string.find`。状态、事件、延迟、保存恢复和 UI/CCO 改动按 [离线回归](lua-offline-testing.md) 校验实际源码路径；真实场景资料按 [MCP 证据工作流](wh3-mcp-workflow.md) 分析。

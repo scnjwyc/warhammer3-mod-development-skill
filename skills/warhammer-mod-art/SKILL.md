@@ -12,7 +12,6 @@ description: "制作和调整战锤3技能图标、人物兵牌、porthole、inf
 | 主动/被动 ability、技能树图标、圆外抠图 | [图标规格](references/icons.md)：主动 59×59、被动 38×38；默认保留完整圆盘 |
 | 60×130 兵牌、porthole、infopic、portrait_settings | [兵牌与头像](references/portraits.md)：量实际槽位，保留双眼/面部识别 |
 | 500×500 MOD 封面及 Pack 同名 PNG | [封面交付](references/covers.md) |
-| 贴图发白、DDS/Mip/格式 | [DDS 技能](../warhammer-character-textures/SKILL.md) |
 
 ## 工具与流程
 
